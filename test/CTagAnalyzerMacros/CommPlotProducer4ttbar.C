@@ -100,15 +100,13 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHistottbar("pt_e",           "P_{T}^{e}",                  50,  0.,200., syst);
   AddHistottbar("pt_mu",          "P_{T}^{#mu}",                50,  0.,200., syst);
   AddHistottbar("pt_jet",         "P_{T}^{leading jet}",        50,  0.,400., syst);
-
+/*
   AddHistottbar("nbtag_CSVv2T","number of btag jets (tight WP)",		     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_CSVv2M","number of btag jets (medium WP)",		     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_CSVv2L","number of btag jets (loose WP)",		     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_cMVAv2T","number of btag jets (tight WP)",		     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_cMVAv2M","number of btag jets (medium WP)",		     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_cMVAv2L","number of btag jets (loose WP)",		     6,-0.5,5.5 , syst   );
-
-
    
   AddHistottbar("nbtag_all_afterJetSel_cMVAv2T","number of btag jets (tight WP)",		     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_all_afterJetSel_cMVAv2M","number of btag jets (medium WP)",		     6,-0.5,5.5 , syst   );
@@ -349,7 +347,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHistottbar("nbtag_2l_120-320_afterJetSel_CSVv2T","number of btag jets (tight WP)",	     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_2l_120-320_afterJetSel_CSVv2M","number of btag jets (medium WP)",     6,-0.5,5.5 , syst   );
   AddHistottbar("nbtag_2l_120-320_afterJetSel_CSVv2L","number of btag jets (loose WP)",	     6,-0.5,5.5 , syst   );
-
+*/
 
   AddHisto("nPU"          ,"number of PU event",	     60,        -0.5,   59.5, syst);
  
@@ -374,7 +372,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHisto("tagvarCSV_2DsigFlightDist_cat0",    "Flight distance significance 2D",nSVbins,   0.,80. , syst );
   AddHisto("tagvarCSV_vertexJetDeltaR_cat0",    "DeltaR(SV,jet) ",                nSVbins,   0.,0.4 , syst );
 
-  
+ /*
   AddHisto("sv_deltaR_jet",      "sv_deltaR_jet",                                       50,0.,0.5  , syst  );
   AddHisto("sv_deltaR_sumJet",   "SVvtxSumJetDeltaR",                                   50,0.,0.5 , syst   );
   AddHisto("sv_deltaR_sumDir",   "SVvtxSumVtxDirDeltaR",                                50,0.,0.5 , syst   );
@@ -395,7 +393,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHisto("sv_flight3Derr",     "Flight distance error 3D",                                            50,   0.,0.2 , syst );
   AddHisto("sv_flight2Derr",     "Flight distance error 2D",                                            50,   0.,0.05, syst );
   AddHisto("sv_mass_3trk"	,"invariant mass of the secondary vertex with at least 3 SV tracks",    50,   0.,8.  , syst );
-  
+*/  
   AddHisto("track_multi"  ,      "number of tracks in the jets",                40,-0.5,39.5 , syst );
   AddHisto("trk_multi_sel"  ,    "number of selected tracks in the jets",       40,-0.5,39.5 , syst );
   AddHisto("track_chi2"   ,      "normalized chi2 of the tracks",               100,0.,30.   , syst );
@@ -440,21 +438,21 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHisto("track_dz_cut"       ,"transverse IP ",		                100,-20., 20., syst );  
   AddHisto("track_pt_cut"       ,"pT ",	                                        80,0.,200.   , syst );
   AddHisto("track_IP2D_cut"     ,"IP2D ",	                                100,-0.1,0.1 , syst );
-   
+  /* 
   AddHisto("TCHE_extended1"	  ,"TCHE_extended1",				70, -30.,30. , syst );
   AddHisto("TCHP_extended1"	  ,"TCHP_extended1",				70, -30.,30. , syst );
   AddHisto("TCHE_extended2"	  ,"TCHE_extended2",				100,-30.,30. , syst );
   AddHisto("TCHP_extended2"	  ,"TCHP_extended2",				100,-30.,30. , syst );
   AddHisto("discri_ssche0",	   "SSVHE Discriminator",                       80, -1., 7.  , syst ); 
   AddHisto("discri_sschp0",	   "SSVHP Discriminator",                       80, -1., 7.  , syst ); 
-   
-  AddHisto("TCHE"	  ,"TCHE",				     50,0.,30. , syst);
-  AddHisto("TCHP"	  ,"TCHP",				     50,0.,30. , syst);  
+   */
+  //AddHisto("TCHE"	  ,"TCHE",				     50,0.,30. , syst);
+  //AddHisto("TCHP"	  ,"TCHP",				     50,0.,30. , syst);  
   AddHisto("JP" 	  ,"JP",				     30,0.,1.5 , syst);
-  AddHisto("JBP"	  ,"JBP",				     25,0.,4.  , syst);
-  AddHisto("SSV"	  ,"SSVHE",				     70,0.,7.  , syst);
-  AddHisto("SSVHP"	  ,"SSVHP",				     70,0.,7.  , syst);
-  AddHisto("CSV"	  ,"CSV",				     50,0.,1.  , syst);
+  //AddHisto("JBP"	  ,"JBP",				     25,0.,4.  , syst);
+  //AddHisto("SSV"	  ,"SSVHE",				     70,0.,7.  , syst);
+  //AddHisto("SSVHP"	  ,"SSVHP",				     70,0.,7.  , syst);
+  //AddHisto("CSV"	  ,"CSV",				     50,0.,1.  , syst);
   AddHisto("CSVv2"	  ,"CSVv2",				     50,0.,1.  , syst);
   AddHisto("CSVv2_pu"	  ,"CSVv2_pu",				     50,0.,1.  , syst);
   AddHisto("cMVAv2"	  ,"cMVAv2",				     50,-1.,1. , syst);
@@ -466,7 +464,42 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHisto("CvsL"         ,"CvsL",                                   50,-1.,1. , syst);
   AddHisto("CvsLN"        ,"CvsLN",                                  50,-1.,1. , syst);
   AddHisto("CvsLP"        ,"CvsLP",                                  50,-1.,1. , syst);
+  AddHisto("CTag_jetNTracks"	        ,"CTag_jetNTracks",	 	40,-0.5,39.5 , syst );
+  AddHisto("CTag_jetNTracksEtaRel"      ,"CTag_jetNTracksEtaRel",	40,-0.5,39.5 , syst );
+  AddHisto("CTag_jetNLeptons"           ,"CTag_jetNLeptons",		7,-0.5, 6.5, syst );
+  AddHisto("CTag_trackSumJetEtRatio"    ,"CTag_trackSumJetEtRatio",     40,   0.,1.5 , syst );
+  AddHisto("CTag_trackSumJetDeltaR"     ,"CTag_trackSumJetDeltaR",	40,   0.,0.5 , syst );
+  AddHisto("CTag_trackSip2dSigAboveCharm","CTag_trackSip2dSigAboveCharm",50, -35,35, syst );
+  AddHisto("CTag_trackSip3dSigAboveCharm","CTag_trackSip3dSigAboveCharm",50, -35,35, syst );
+  AddHisto("CTag_vertexCategory"	,"CTag_vertexCategory",		3, -0.5, 2.5, syst );
+  AddHisto("CTag_jetNSecondaryVertices" ,"CTag_jetNSecondaryVertices",	6,-0.5,5.5  , syst );
+  AddHisto("CTag_vertexMass"		,"CTag_vertexMass",		nSVbins,   0.,8.  , syst );
+  AddHisto("CTag_vertexNTracks"		,"CTag_vertexNTracks",		13, -0.5,12.5, syst );
+  AddHisto("CTag_vertexEnergyRatio"	,"CTag_vertexEnergyRatio",	nSVbins,   0.,1.  , syst );
+  AddHisto("CTag_vertexJetDeltaR"	,"CTag_vertexJetDeltaR",	nSVbins,   0.,0.4 , syst );
+  AddHisto("CTag_flightDistance2dSig"   ,"CTag_flightDistance2dSig",	nSVbins,   0.,80. , syst );
+  AddHisto("CTag_flightDistance3dSig"   ,"CTag_flightDistance3dSig",    nSVbins,   0.,80. , syst );
+  AddHisto("CTag_massVertexEnergyFraction","CTag_massVertexEnergyFraction", 50, 0, 1, syst );  
+  AddHisto("CTag_vertexBoostOverSqrtJetPt","CTag_vertexBoostOverSqrtJetPt", 50, 0, 1, syst );
+  AddHisto("CTag_vertexLeptonCategory"  ,"CTag_vertexLeptonCategory",   7,-0.5, 6.5, syst );
+  AddHisto("CTag_trackPtRel"  ,"CTag_trackPtRel", 40, 0 ,10  , syst );
+  AddHisto("CTag_trackPPar"  ,"CTag_trackPPar", 40, 0, 200  , syst );
+  AddHisto("CTag_trackDeltaR"  ,"CTag_trackDeltaR", 40, 0, 0.4  , syst );
+  AddHisto("CTag_trackPtRatio"  ,"CTag_trackPtRatio", 30, 0, 0.3  , syst );
+  AddHisto("CTag_trackPParRatio"  ,"CTag_trackPParRatio", 40, 0.95, 1  , syst );
+  AddHisto("CTag_trackSip2dSig"  ,"CTag_trackSip2dSig", 40, -30, 30  , syst );
+  AddHisto("CTag_trackSip3dSig"  ,"CTag_trackSip3dSig", 40, -30, 30  , syst );
+  AddHisto("CTag_trackDecayLenVal"  ,"CTag_trackDecayLenVal", 40, 0, 5  , syst );
+  AddHisto("CTag_trackJetDistVal"  ,"CTag_trackJetDistVal", 40, -0.07, 0  , syst );
+  AddHisto("CTag_trackEtaRel"  ,"CTag_trackEtaRel", 40, 0, 8  , syst );
+  AddHisto("CTag_leptonPtRel"  ,"CTag_leptonPtRel", 40, 0 ,6  , syst );
+  AddHisto("CTag_leptonSip3d"  ,"CTag_leptonSip3d", 50, -1, 1  , syst );
+  AddHisto("CTag_leptonDeltaR"  ,"CTag_leptonDeltaR", 40 , 0, 0.4  , syst );
+  AddHisto("CTag_leptonRatioRel"  ,"CTag_leptonRatioRel", 40, 0 , 0.02  , syst );
+  AddHisto("CTag_leptonEtaRel"  ,"CTag_leptonEtaRel", 40, 0 , 0.1  , syst );
+  AddHisto("CTag_leptonRatio"  ,"CTag_leptonRatio", 40 , 0 ,1  , syst );
 
+/*
   AddHisto("SoftMu"       ,"SoftMu",                                 50,0.,1.  , syst);
   AddHisto("SoftEl"       ,"SoftEl",                                 50,0.,1.  , syst);
   
@@ -489,7 +522,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHisto("pfelectron_ratio",  "ratio of pfelectron",          50,      0,   2, syst );  
   AddHisto("pfelectron_ratiorel","ratioRel of pfelectron",      50,      0,0.05, syst );  
   AddHisto("pfelectron_deltar",	"#DeltaR(pfelectron,jet)",      50,      0, 0.5, syst );  
-
+*/
   
   AddHisto2D("seltrack_vs_jetpt", "sel track multiplicity vs jet pt",         30,60,1000, 100,-0.5,99.5,syst );
   AddHisto2D("sv_mass_vs_flightDist3D", " SVMass vs SV 3D flight distance ",  100,0, 10,100,0,6,        syst );			
@@ -580,7 +613,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
 
     // to compute the event weight but no the event selection (for PU reweighting)
     bool computeEvtWgtOnly = true;
-    bool computeWeights =  thettbarselector_.passTTbarSelection( isData, theLeptColl, theLeptIds, theJetColl, ttbar_trigWord, ttbar_w, ttbar_nw, wgtcounter, syst, computeEvtWgtOnly);
+    bool computeWeights =  thettbarselector_.passSemiLepTTbarSelection( isData, theLeptColl, theLeptIds, theJetColl, ttbar_trigWord, ttbar_w, ttbar_nw, wgtcounter, syst, computeEvtWgtOnly);
 
     // if something goes wrong in the event weight calculation
     if(!computeWeights)  continue;
@@ -605,7 +638,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
     computeEvtWgtOnly = false;
 
     // do the event selection
-    bool passsel =  thettbarselector_.passTTbarSelection( isData, theLeptColl, theLeptIds, theJetColl, ttbar_trigWord, ttbar_w, ttbar_nw, wgtcounter, syst, computeEvtWgtOnly);
+    bool passsel =  thettbarselector_.passSemiLepTTbarSelection( isData, theLeptColl, theLeptIds, theJetColl, ttbar_trigWord, ttbar_w, ttbar_nw, wgtcounter, syst, computeEvtWgtOnly);
     if(!passsel)  continue;
 
     bool fillCommissioningHistograms = false;
@@ -1010,8 +1043,52 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
           FillHisto_floatFromMap("tagvarCSV_2DsigFlightDist_cat0", flav, isPU, TagVarCSV_flightDistance2dSig[newJetIndex],      ww);
           FillHisto_floatFromMap("tagvarCSV_vertexJetDeltaR_cat0", flav, isPU, TagVarCSV_vertexJetDeltaR[newJetIndex],          ww);
         }
-
 	
+	//Add by Keng//
+ 	FillHisto_floatFromMap("CTag_jetNTracks",		flav, isPU ,CTag_jetNTracks[newJetIndex],              ww);	
+        FillHisto_floatFromMap("CTag_jetNTracksEtaRel",         flav, isPU ,CTag_jetNTracksEtaRel[newJetIndex],              ww);
+        FillHisto_floatFromMap("CTag_jetNLeptons",              flav, isPU ,CTag_jetNLeptons[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_trackSumJetEtRatio",       flav, isPU ,CTag_trackSumJetEtRatio[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_trackSumJetDeltaR",        flav, isPU ,CTag_trackSumJetDeltaR[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_trackSip2dSigAboveCharm",  flav, isPU ,CTag_trackSip2dSigAboveCharm[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_trackSip3dSigAboveCharm",  flav, isPU ,CTag_trackSip3dSigAboveCharm[newJetIndex],              ww);
+        FillHisto_floatFromMap("CTag_vertexCategory",  		flav, isPU ,CTag_vertexCategory[newJetIndex],              ww);
+        FillHisto_floatFromMap("CTag_jetNSecondaryVertices",  	flav, isPU ,CTag_jetNSecondaryVertices[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_vertexMass",  		flav, isPU ,CTag_vertexMass[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_vertexNTracks",  		flav, isPU ,CTag_vertexNTracks[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_vertexEnergyRatio",  	flav, isPU ,CTag_vertexEnergyRatio[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_vertexJetDeltaR",  	flav, isPU ,CTag_vertexJetDeltaR[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_flightDistance2dSig",  	flav, isPU ,CTag_flightDistance2dSig[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_flightDistance3dSig",  	flav, isPU ,CTag_flightDistance3dSig[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_massVertexEnergyFraction", flav, isPU ,CTag_massVertexEnergyFraction[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_vertexBoostOverSqrtJetPt", flav, isPU ,CTag_vertexBoostOverSqrtJetPt[newJetIndex],              ww);
+	FillHisto_floatFromMap("CTag_vertexLeptonCategory",  	flav, isPU ,CTag_vertexLeptonCategory[newJetIndex],              ww);
+        for (int inrel=Jet_nFirstTrkCTagVar[newJetIndex]; inrel<Jet_nLastTrkCTagVar[newJetIndex]; inrel++)
+        {
+           FillHisto_floatFromMap("CTag_trackPtRel",    flav, isPU, CTag_trackPtRel[inrel],                     ww);
+	   FillHisto_floatFromMap("CTag_trackPPar",    flav, isPU, CTag_trackPPar[inrel],                     ww);
+	   FillHisto_floatFromMap("CTag_trackDeltaR",    flav, isPU, CTag_trackDeltaR[inrel],                     ww);
+           FillHisto_floatFromMap("CTag_trackPtRatio",    flav, isPU, CTag_trackPtRatio[inrel],                     ww);
+           FillHisto_floatFromMap("CTag_trackPParRatio",    flav, isPU, CTag_trackPParRatio[inrel],                     ww);
+           FillHisto_floatFromMap("CTag_trackSip2dSig",    flav, isPU, CTag_trackSip2dSig[inrel],                     ww);
+           FillHisto_floatFromMap("CTag_trackSip3dSig",    flav, isPU, CTag_trackSip3dSig[inrel],                     ww);
+           FillHisto_floatFromMap("CTag_trackDecayLenVal",    flav, isPU, CTag_trackDecayLenVal[inrel],                     ww);
+           FillHisto_floatFromMap("CTag_trackJetDistVal",    flav, isPU, CTag_trackJetDistVal[inrel],                     ww); 
+        }
+        for (int inrel=Jet_nFirstTrkEtaRelCTagVar[newJetIndex]; inrel<Jet_nLastTrkEtaRelCTagVar[newJetIndex]; inrel++)
+        {
+           FillHisto_floatFromMap("CTag_trackEtaRel",      flav, isPU, CTag_trackEtaRel[inrel],                       ww);
+        }
+        for (int inrel=Jet_nFirstLepCTagVar[newJetIndex]; inrel<Jet_nLastLepCTagVar[newJetIndex]; inrel++)
+        {
+           FillHisto_floatFromMap("CTag_leptonPtRel",      flav, isPU, CTag_leptonPtRel[inrel],                       ww);
+	   FillHisto_floatFromMap("CTag_leptonSip3d",      flav, isPU, CTag_leptonSip3d[inrel],                       ww);
+	   FillHisto_floatFromMap("CTag_leptonDeltaR",      flav, isPU, CTag_leptonDeltaR[inrel],                       ww);
+	   FillHisto_floatFromMap("CTag_leptonRatioRel",      flav, isPU, CTag_leptonRatioRel[inrel],                       ww);
+	   FillHisto_floatFromMap("CTag_leptonEtaRel",      flav, isPU, CTag_leptonEtaRel[inrel],                       ww);
+	   FillHisto_floatFromMap("CTag_leptonRatio",      flav, isPU, CTag_leptonRatio[inrel],                       ww);
+        }
+/*	
         //---------------------------------
 	//fill information related to SV
 	//---------------------------------
@@ -1069,7 +1146,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
 	  FillHisto2D_float_floatFromMap("sv_deltar_sum_dir_vs_jetpt"  ,flav,isPU ,ptjet,sv_dR_jet_sum  , ww);	    
 	    
 	}//end n_sv > 0 condition
-
+*/
       }//end produce jetProbaTree and fillCommissioningHistograms
 	    
 
@@ -1077,13 +1154,13 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
       {
 
         //Taggers
-        FillHisto_floatFromMap("TCHE",  flav, isPU, tche	, ww);
-        FillHisto_floatFromMap("TCHP",  flav, isPU, tchp	, ww);
+        //FillHisto_floatFromMap("TCHE",  flav, isPU, tche	, ww);
+        //FillHisto_floatFromMap("TCHP",  flav, isPU, tchp	, ww);
         FillHisto_floatFromMap("JP",    flav, isPU, jetproba    , ww);
-        FillHisto_floatFromMap("JBP",   flav, isPU, jetbproba   , ww);
-        FillHisto_floatFromMap("SSV",   flav, isPU, ssvhe	, ww);
-        FillHisto_floatFromMap("SSVHP", flav, isPU, ssvhp	, ww);
-        FillHisto_floatFromMap("CSV",   flav, isPU, csv	        , ww);
+        //FillHisto_floatFromMap("JBP",   flav, isPU, jetbproba   , ww);
+        //FillHisto_floatFromMap("SSV",   flav, isPU, ssvhe	, ww);
+        //FillHisto_floatFromMap("SSVHP", flav, isPU, ssvhp	, ww);
+        //FillHisto_floatFromMap("CSV",   flav, isPU, csv	        , ww);
         FillHisto_floatFromMap("CSVv2", flav, isPU, csv_v2      , ww);
         FillHisto_floatFromMap("cMVAv2",flav, isPU, cmva_v2     , ww);
    
@@ -1096,7 +1173,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
         FillHisto_floatFromMap("CvsLP", flav, isPU, CvsBP       ,ww);
 
       }
-
+/*
       if (fillCommissioningHistograms && produceNewAlgoTree) 
       {
         float softmu            = Jet_SoftMu[newJetIndex]  ;
@@ -1106,6 +1183,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
         FillHisto_floatFromMap("SoftEl",      flav, isPU, solfel        , ww);
 
       }
+
 
       if( fillCommissioningHistograms)
       {
@@ -1118,8 +1196,8 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
         FillHisto_floatFromMap("discri_sschp0",   flav, isPU, ssvhp , ww);
       
       } // end of fillCommissioningHistograms     
-
-
+*/
+/*
       if (fillCommissioningHistograms && produceNewAlgoTree) 
       {
         // PFMuon
@@ -1203,7 +1281,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
 
 
       }// end produceNewAlgoTree and fillCommissioningHistograms
-      
+*/      
 
     } // End Loop on Jets
 
@@ -1211,15 +1289,16 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
     if(fillCommissioningHistograms)
     {
         FillHistottbar_intFromMap("njet",               datatype, 0 ,thettbarselector_.theSelJetColl.size()  , ww);
-        FillHistottbar_intFromMap("nbtag_CSVv2T",       datatype, 0 ,nbjet_ttbar_CSVv2_TWP                   , ww);
+/*        FillHistottbar_intFromMap("nbtag_CSVv2T",       datatype, 0 ,nbjet_ttbar_CSVv2_TWP                   , ww);
         FillHistottbar_intFromMap("nbtag_CSVv2M",       datatype, 0 ,nbjet_ttbar_CSVv2_MWP                   , ww);
         FillHistottbar_intFromMap("nbtag_CSVv2L",       datatype, 0 ,nbjet_ttbar_CSVv2_LWP                   , ww);
         FillHistottbar_intFromMap("nbtag_cMVAv2T",      datatype, 0 ,nbjet_ttbar_cMVAv2_TWP                  , ww);
         FillHistottbar_intFromMap("nbtag_cMVAv2M",      datatype, 0 ,nbjet_ttbar_cMVAv2_MWP                  , ww);
         FillHistottbar_intFromMap("nbtag_cMVAv2L",      datatype, 0 ,nbjet_ttbar_cMVAv2_LWP                  , ww);
+*/
         FillHistottbar_floatFromMap("pt_jet",           datatype, 0 ,ptjet_ttbar                             , ww);
     }
-
+/*
     TString tmp_ptbin = "";
     
     if(isTTbarSelForSF == true)
@@ -1399,7 +1478,7 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
         else if( !isData ) cout << "There is an issue with the gen jets: see line: " << __LINE__ << " and n_ttbar[b,c,l]genjet = " << n_ttbar_bgenjet << " | " << n_ttbar_cgenjet << " | " << n_ttbar_lgenjet << endl;
 
     } // end of isTTbarSelForSF condition
-   
+*/   
 
     //cout << "---------------------End event---------------------------" << endl;
     

@@ -8,6 +8,9 @@
 #ifndef CommPlotProducer4ttbar_h
 #define CommPlotProducer4ttbar_h
 #define ntrack_max 2000
+#define nMaxJets_ 1000
+#define nMaxLeptons_ 1000
+#define nMaxTrk_ 1000
 
 #include "TH1D.h"
 #include "TH2D.h"
@@ -306,14 +309,64 @@ public :
    Float_t SV_vtx_eta[1000];             //[nSV]
    Float_t SV_vtx_phi[1000];              //[nSV]  
        
-   //Add by Keng//
-   Float_t CTag_Jet_CvsB[1000];
-   Float_t CTag_Jet_CvsBN[1000];
-   Float_t CTag_Jet_CvsBP[1000]; 
-   Float_t CTag_Jet_CvsL[1000];
-   Float_t CTag_Jet_CvsLN[1000];
-   Float_t CTag_Jet_CvsLP[1000];
-
+   //Add by Keng// 
+   //per jet
+   Int_t Jet_nFirstTrkCTagVar[nMaxJets_];
+   Int_t Jet_nLastTrkCTagVar[nMaxJets_];
+   Int_t Jet_nFirstTrkEtaRelCTagVar[nMaxJets_];
+   Int_t Jet_nLastTrkEtaRelCTagVar[nMaxJets_];
+   Int_t Jet_nFirstLepCTagVar[nMaxJets_];
+   Int_t Jet_nLastLepCTagVar[nMaxJets_]; 
+   Float_t CTag_Jet_CvsB[nMaxJets_];
+   Float_t CTag_Jet_CvsBN[nMaxJets_];
+   Float_t CTag_Jet_CvsBP[nMaxJets_]; 
+   Float_t CTag_Jet_CvsL[nMaxJets_];
+   Float_t CTag_Jet_CvsLN[nMaxJets_];
+   Float_t CTag_Jet_CvsLP[nMaxJets_];
+   Float_t CTag_jetNTracks[nMaxJets_];
+   Float_t CTag_jetNTracksEtaRel[nMaxJets_];
+   Float_t CTag_jetNLeptons[nMaxJets_];
+   Float_t CTag_trackSumJetEtRatio[nMaxJets_];
+   Float_t CTag_trackSumJetDeltaR[nMaxJets_];
+   Float_t CTag_trackSip2dSigAboveCharm[nMaxJets_];
+   Float_t CTag_trackSip3dSigAboveCharm[nMaxJets_];
+   Float_t CTag_vertexCategory[nMaxJets_];
+   Float_t CTag_jetNSecondaryVertices[nMaxJets_];
+   Float_t CTag_vertexMass[nMaxJets_];
+   Float_t CTag_vertexNTracks[nMaxJets_];
+   Float_t CTag_vertexEnergyRatio[nMaxJets_];
+   Float_t CTag_vertexJetDeltaR[nMaxJets_];
+   Float_t CTag_flightDistance2dVal[nMaxJets_];
+   Float_t CTag_flightDistance2dSig[nMaxJets_];
+   Float_t CTag_flightDistance3dVal[nMaxJets_];
+   Float_t CTag_flightDistance3dSig[nMaxJets_];
+   Float_t CTag_vertexFitProb[nMaxJets_];
+   Float_t CTag_massVertexEnergyFraction[nMaxJets_];
+   Float_t CTag_vertexBoostOverSqrtJetPt[nMaxJets_];
+   Float_t CTag_vertexLeptonCategory[nMaxJets_];
+   //per jet per track
+   Int_t nTrkCTagVar;
+   Int_t nTrkEtaRelCTagVar;
+   Float_t CTag_trackPtRel[nMaxTrk_];                            
+   Float_t CTag_trackPPar[nMaxTrk_];                            
+   Float_t CTag_trackDeltaR[nMaxTrk_];                           
+   Float_t CTag_trackPtRatio[nMaxTrk_];                          
+   Float_t CTag_trackPParRatio[nMaxTrk_];                        
+   Float_t CTag_trackSip2dVal[nMaxTrk_];                         
+   Float_t CTag_trackSip2dSig[nMaxTrk_];                         
+   Float_t CTag_trackSip3dVal[nMaxTrk_];                         
+   Float_t CTag_trackSip3dSig[nMaxTrk_];                         
+   Float_t CTag_trackDecayLenVal[nMaxTrk_];                      
+   Float_t CTag_trackJetDistVal[nMaxTrk_];                       
+   Float_t CTag_trackEtaRel[nMaxTrk_]; 
+   //per jet per lepton
+   Int_t   nLeptons;
+   Float_t CTag_leptonPtRel[nMaxLeptons_];
+   Float_t CTag_leptonSip3d[nMaxLeptons_];
+   Float_t CTag_leptonDeltaR[nMaxLeptons_];
+   Float_t CTag_leptonRatioRel[nMaxLeptons_];
+   Float_t CTag_leptonEtaRel[nMaxLeptons_];
+   Float_t CTag_leptonRatio[nMaxLeptons_];
 
    // List of branches
    TBranch        *b_nBitTrigger;   //!
@@ -480,12 +533,62 @@ public :
    TBranch        *b_PFMuon_GoodQuality;   //!   
    
    //Add by Keng//
+   TBranch        *c_Jet_nFirstTrkCTagVar;
+   TBranch        *c_Jet_nLastTrkCTagVar;
+   TBranch        *c_Jet_nFirstTrkEtaRelCTagVar;
+   TBranch        *c_Jet_nLastTrkEtaRelCTagVar;
+   TBranch        *c_Jet_nFirstLepCTagVar;
+   TBranch        *c_Jet_nLastLepCTagVar;
    TBranch        *c_CTag_Jet_CvsB;
    TBranch        *c_CTag_Jet_CvsBN;
    TBranch        *c_CTag_Jet_CvsBP;
    TBranch        *c_CTag_Jet_CvsL;
    TBranch        *c_CTag_Jet_CvsLN;
    TBranch        *c_CTag_Jet_CvsLP;
+   TBranch        *c_CTag_jetNTracks;
+   TBranch        *c_CTag_jetNTracksEtaRel;
+   TBranch        *c_CTag_jetNLeptons;
+   TBranch        *c_CTag_trackSumJetEtRatio;
+   TBranch        *c_CTag_trackSumJetDeltaR;
+   TBranch        *c_CTag_trackSip2dSigAboveCharm;
+   TBranch        *c_CTag_trackSip3dSigAboveCharm;
+   TBranch        *c_CTag_vertexCategory;
+   TBranch        *c_CTag_jetNSecondaryVertices;
+   TBranch        *c_CTag_vertexMass;
+   TBranch        *c_CTag_vertexNTracks;
+   TBranch        *c_CTag_vertexEnergyRatio;
+   TBranch        *c_CTag_vertexJetDeltaR;
+   TBranch        *c_CTag_flightDistance2dVal;
+   TBranch        *c_CTag_flightDistance2dSig;
+   TBranch        *c_CTag_flightDistance3dVal;
+   TBranch        *c_CTag_flightDistance3dSig;
+   TBranch        *c_CTag_vertexFitProb;
+   TBranch        *c_CTag_massVertexEnergyFraction;
+   TBranch        *c_CTag_vertexBoostOverSqrtJetPt;
+   TBranch        *c_CTag_vertexLeptonCategory;
+   //track information
+   TBranch        *c_nTrkCTagVar;
+   TBranch        *c_nTrkEtaRelCTagVar;
+   TBranch        *c_CTag_trackPtRel;
+   TBranch        *c_CTag_trackPPar;
+   TBranch        *c_CTag_trackDeltaR;
+   TBranch        *c_CTag_trackPtRatio;
+   TBranch        *c_CTag_trackPParRatio;
+   TBranch        *c_CTag_trackSip2dVal;
+   TBranch        *c_CTag_trackSip2dSig;
+   TBranch        *c_CTag_trackSip3dVal;
+   TBranch        *c_CTag_trackSip3dSig;
+   TBranch        *c_CTag_trackDecayLenVal;
+   TBranch        *c_CTag_trackJetDistVal;
+   TBranch        *c_CTag_trackEtaRel;
+   //lepton information
+   TBranch        *c_nLeptons;
+   TBranch        *c_CTag_leptonPtRel;
+   TBranch        *c_CTag_leptonSip3d;
+   TBranch        *c_CTag_leptonDeltaR;
+   TBranch        *c_CTag_leptonRatioRel;
+   TBranch        *c_CTag_leptonEtaRel;
+   TBranch        *c_CTag_leptonRatio;
 
    //--------------------------------------
    // track information 
@@ -761,13 +864,61 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    //fChain->SetBranchAddress("bFromGSplit_phi", bFromGSplit_phi, &b_bFromGSplit_phi);   
    fChain->SetBranchAddress("mcweight", &mcweight, &b_mcweight);
 
-   //Add by Keng// 
+   //Add by Keng//
+   fChain->SetBranchAddress("Jet_nFirstTrkCTagVar"        ,Jet_nFirstTrkCTagVar        ,&c_Jet_nFirstTrkCTagVar);
+   fChain->SetBranchAddress("Jet_nLastTrkCTagVar"         ,Jet_nLastTrkCTagVar         ,&c_Jet_nLastTrkCTagVar);
+   fChain->SetBranchAddress("Jet_nFirstTrkEtaRelCTagVar"        ,Jet_nFirstTrkEtaRelCTagVar        ,&c_Jet_nFirstTrkEtaRelCTagVar);
+   fChain->SetBranchAddress("Jet_nLastTrkEtaRelCTagVar"        ,Jet_nLastTrkEtaRelCTagVar        ,&c_Jet_nLastTrkEtaRelCTagVar);
+   fChain->SetBranchAddress("Jet_nFirstLepCTagVar"        ,Jet_nFirstLepCTagVar        ,&c_Jet_nFirstLepCTagVar);
+   fChain->SetBranchAddress("Jet_nLastLepCTagVar"         ,Jet_nLastLepCTagVar         ,&c_Jet_nLastLepCTagVar);   
    fChain->SetBranchAddress("CTag_Jet_CvsB", CTag_Jet_CvsB, &c_CTag_Jet_CvsB);
    fChain->SetBranchAddress("CTag_Jet_CvsBN", CTag_Jet_CvsBN, &c_CTag_Jet_CvsBN);
    fChain->SetBranchAddress("CTag_Jet_CvsBP", CTag_Jet_CvsBP, &c_CTag_Jet_CvsBP);
    fChain->SetBranchAddress("CTag_Jet_CvsL", CTag_Jet_CvsL, &c_CTag_Jet_CvsL);
    fChain->SetBranchAddress("CTag_Jet_CvsLN", CTag_Jet_CvsLN, &c_CTag_Jet_CvsLN);   
    fChain->SetBranchAddress("CTag_Jet_CvsLP", CTag_Jet_CvsLP, &c_CTag_Jet_CvsLP);
+   fChain->SetBranchAddress("CTag_jetNTracks"               ,CTag_jetNTracks               ,&c_CTag_jetNTracks);
+   fChain->SetBranchAddress("CTag_jetNTracksEtaRel"         ,CTag_jetNTracksEtaRel         ,&c_CTag_jetNTracksEtaRel);
+   fChain->SetBranchAddress("CTag_trackSumJetEtRatio"       ,CTag_trackSumJetEtRatio       ,&c_CTag_trackSumJetEtRatio);
+   fChain->SetBranchAddress("CTag_trackSumJetDeltaR"        ,CTag_trackSumJetDeltaR        ,&c_CTag_trackSumJetDeltaR);
+   fChain->SetBranchAddress("CTag_trackSip2dSigAboveCharm"  ,CTag_trackSip2dSigAboveCharm  ,&c_CTag_trackSip2dSigAboveCharm);
+   fChain->SetBranchAddress("CTag_trackSip3dSigAboveCharm"  ,CTag_trackSip3dSigAboveCharm  ,&c_CTag_trackSip3dSigAboveCharm);
+   fChain->SetBranchAddress("CTag_vertexCategory"           ,CTag_vertexCategory           ,&c_CTag_vertexCategory);    
+   fChain->SetBranchAddress("CTag_jetNSecondaryVertices"    ,CTag_jetNSecondaryVertices    ,&c_CTag_jetNSecondaryVertices);
+   fChain->SetBranchAddress("CTag_vertexMass"               ,CTag_vertexMass               ,&c_CTag_vertexMass);
+   fChain->SetBranchAddress("CTag_vertexNTracks"            ,CTag_vertexNTracks            ,&c_CTag_vertexNTracks);
+   fChain->SetBranchAddress("CTag_vertexEnergyRatio"        ,CTag_vertexEnergyRatio        ,&c_CTag_vertexEnergyRatio);
+   fChain->SetBranchAddress("CTag_vertexJetDeltaR"          ,CTag_vertexJetDeltaR          ,&c_CTag_vertexJetDeltaR);
+   fChain->SetBranchAddress("CTag_flightDistance2dVal"      ,CTag_flightDistance2dVal      ,&c_CTag_flightDistance2dVal);
+   fChain->SetBranchAddress("CTag_flightDistance2dSig"      ,CTag_flightDistance2dSig      ,&c_CTag_flightDistance2dSig);
+   fChain->SetBranchAddress("CTag_flightDistance3dVal"      ,CTag_flightDistance3dVal      ,&c_CTag_flightDistance3dVal);
+   fChain->SetBranchAddress("CTag_flightDistance3dSig"      ,CTag_flightDistance3dSig      ,&c_CTag_flightDistance3dSig);  
+   fChain->SetBranchAddress("CTag_vertexFitProb"            ,CTag_vertexFitProb         ,&c_CTag_vertexFitProb);
+   fChain->SetBranchAddress("CTag_massVertexEnergyFraction" ,CTag_massVertexEnergyFraction     ,&c_CTag_massVertexEnergyFraction);
+   fChain->SetBranchAddress("CTag_vertexBoostOverSqrtJetPt" ,CTag_vertexBoostOverSqrtJetPt     ,&c_CTag_vertexBoostOverSqrtJetPt);
+   fChain->SetBranchAddress("CTag_vertexLeptonCategory"     ,CTag_vertexLeptonCategory     ,&c_CTag_vertexLeptonCategory);
+   fChain->SetBranchAddress("nTrkCTagVar"               ,&nTrkCTagVar              ,&c_nTrkCTagVar);
+   fChain->SetBranchAddress("nTrkEtaRelCTagVar"         ,&nTrkEtaRelCTagVar        ,&c_nTrkEtaRelCTagVar);
+   fChain->SetBranchAddress("CTag_trackPtRel"        ,CTag_trackPtRel        ,&c_CTag_trackPtRel);
+   fChain->SetBranchAddress("CTag_trackPPar"         ,CTag_trackPPar         ,&c_CTag_trackPPar);
+   fChain->SetBranchAddress("CTag_trackDeltaR"       ,CTag_trackDeltaR       ,&c_CTag_trackDeltaR);
+   fChain->SetBranchAddress("CTag_trackPtRatio"      ,CTag_trackPtRatio      ,&c_CTag_trackPtRatio);
+   fChain->SetBranchAddress("CTag_trackPParRatio"    ,CTag_trackPParRatio    ,&c_CTag_trackPParRatio);
+   fChain->SetBranchAddress("CTag_trackSip2dVal"     ,CTag_trackSip2dVal     ,&c_CTag_trackSip2dVal);
+   fChain->SetBranchAddress("CTag_trackSip2dSig"     ,CTag_trackSip2dSig     ,&c_CTag_trackSip2dSig);
+   fChain->SetBranchAddress("CTag_trackSip3dVal"     ,CTag_trackSip3dVal     ,&c_CTag_trackSip3dVal);
+   fChain->SetBranchAddress("CTag_trackSip3dSig"     ,CTag_trackSip3dSig     ,&c_CTag_trackSip3dSig);
+   fChain->SetBranchAddress("CTag_trackDecayLenVal"  ,CTag_trackDecayLenVal  ,&c_CTag_trackDecayLenVal);
+   fChain->SetBranchAddress("CTag_trackJetDistVal"   ,CTag_trackJetDistVal   ,&c_CTag_trackJetDistVal);
+   fChain->SetBranchAddress("CTag_trackEtaRel"       ,CTag_trackEtaRel       ,&c_CTag_trackEtaRel);
+   fChain->SetBranchAddress("CTag_jetNLeptons"               ,CTag_jetNLeptons               ,&c_CTag_jetNLeptons);  
+   fChain->SetBranchAddress("nLeptons"               ,&nLeptons              ,&c_nLeptons);
+   fChain->SetBranchAddress("CTag_leptonPtRel"         ,CTag_leptonPtRel         ,&c_CTag_leptonPtRel);
+   fChain->SetBranchAddress("CTag_leptonSip3d"         ,CTag_leptonSip3d         ,&c_CTag_leptonSip3d);
+   fChain->SetBranchAddress("CTag_leptonDeltaR"         ,CTag_leptonDeltaR         ,&c_CTag_leptonDeltaR);
+   fChain->SetBranchAddress("CTag_leptonRatioRel"         ,CTag_leptonRatioRel         ,&c_CTag_leptonRatioRel);
+   fChain->SetBranchAddress("CTag_leptonEtaRel"         ,CTag_leptonEtaRel         ,&c_CTag_leptonEtaRel);
+   fChain->SetBranchAddress("CTag_leptonRatio"         ,CTag_leptonRatio         ,&c_CTag_leptonRatio);
 
 
   if ( produceJetProbaTree ) {

@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 ttbarselectionproducer = cms.EDProducer("TTbarSelectionProducer",
-                                        verbose          = cms.int32(0),
+                                        verbose          = cms.int32(6),
                                         triggerColl      = cms.InputTag("TriggerResults","","HLT"),
                                         prunedGenParticles       = cms.InputTag('prunedGenParticles'),
                                         metFilters       = cms.VInputTag(cms.InputTag('TriggerResults','','RECO'),
@@ -13,12 +13,16 @@ ttbarselectionproducer = cms.EDProducer("TTbarSelectionProducer",
                                         trigNamesToSel   = cms.vstring('Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL',
                                                                        'Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL',
                                                                        'Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ',
-                                                                       'Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ'
+                                                                       'Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ',
+								       'IsoMu18',
+								       'Ele23_WPLoose_Gsf'
                                                                        ),
                                         trigChannels     = cms.vint32(11*13,
                                                                       11*13,
                                                                       11*11,
-                                                                      13*13),
+                                                                      13*13,
+								      13,	   
+								      11),
                                         doTrigSel        = cms.bool(True),
                                         electronColl     = cms.InputTag("slimmedElectrons"),
                                         conversions      = cms.InputTag("reducedEgamma:reducedConversions"),

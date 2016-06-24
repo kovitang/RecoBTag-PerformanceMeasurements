@@ -54,7 +54,7 @@
 */
    //TFile* file_ttbar = new TFile("/opt/sbg/data/data2/cms/mbuttign/NTuplesBtagCommissioning_Jan16_v2/MC13TeV_TTJets_powheg_pythia8/MergedJetTree.root");
    //TFile* file_ttbar = new TFile("/opt/sbg/data/data2/cms/mbuttign/NTuplesBtagCommissioning_Jan16_v2/MC13TeV_TTJets_amcatnlo/MergedJetTree.root");
-   TFile* file_ttbar = new TFile("/afs/cern.ch/work/k/kovitang/765_Commissioning/CMSSW_7_6_5/src/RecoBTag/PerformanceMeasurements/test/JetTree_mc.root");
+   TFile* file_ttbar = new TFile("/afs/cern.ch/work/k/kovitang/765_Commissioning/CMSSW_7_6_5/src/RecoBTag/PerformanceMeasurements/test/JetTree_mc_allEvents_SingleLep_062016.root");
    TH1F* inputWeight = (TH1F*)file_ttbar->Get("ttbarselectionproducer/wgtcounter");
    wgtcounter_ttbar = inputWeight->GetBinContent(1);
    TChain* tree_ttbar = (TChain*) file_ttbar->Get("btagana/ttree");
