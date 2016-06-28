@@ -132,6 +132,10 @@
 
 #include "RecoBTag/SecondaryVertex/interface/CombinedSVSoftLeptonComputer.h"
 
+//add by Keng//
+#include "RecoBTag/PerformanceMeasurements/interface/SUSYInfoBranches.h"
+#include "FWCore/Common/interface/TriggerNames.h"
+
 //
 // constants, enums and typedefs
 //
@@ -386,6 +390,10 @@ private:
   bool storeCTagVariables_;
   bool doCTag_; 
 
+  //add by Keng//
+  bool storeSTOP_;
+  edm::EDGetTokenT<edm::View<pat::MET>> Mets_;
+
   bool use_ttbar_filter_;
   edm::EDGetTokenT<edm::View<reco::GenParticle> > ttbarproducerGen_;
   edm::EDGetTokenT<edm::View<pat::Electron>> ttbarproducerEle_;
@@ -428,6 +436,9 @@ private:
   //// Event info
   EventInfoBranches EventInfo;
 
+  //add by Keng//
+  SUSYInfoBranches SUSYInfo;
+
   //// Jet info
   std::vector<JetInfoBranches> JetInfo;
   std::map<std::string, SubJetInfoBranches> SubJetInfo;
@@ -443,7 +454,7 @@ private:
   const GenericMVAJetTagComputer *slcomputer ;
 
   edm::View<reco::Muon> muons ;
-
+ 
   edm::ESHandle<TransientTrackBuilder> trackBuilder ;
   edm::Handle<reco::VertexCollection> primaryVertex ;
 
@@ -558,6 +569,10 @@ BTagAnalyzerT<IPTI,VTX>::BTagAnalyzerT(const edm::ParameterSet& iConfig):
 
   storeCTagVariables_ = iConfig.getParameter<bool>("storeCTagVariables");
   doCTag_             = iConfig.getParameter<bool>("doCTag");
+
+  //add By Keng//
+  storeSTOP_ = iConfig.getParameter<bool>("storeSTOP");
+  Mets_      = consumes<edm::View<pat::MET>>(iConfig.getParameter<edm::InputTag>("Mets"));
 
   use_ttbar_filter_ = iConfig.getParameter<bool> ("use_ttbar_filter");
   ttbarproducerGen_ = consumes<edm::View<reco::GenParticle>>(iConfig.getParameter<edm::InputTag>("ttbarproducer")),
@@ -719,6 +734,12 @@ BTagAnalyzerT<IPTI,VTX>::BTagAnalyzerT(const edm::ParameterSet& iConfig):
     if ( produceAllTrackTree_ ) EventInfo.RegisterAllTrackTree(smalltree);
     if ( storePatMuons_ )       EventInfo.RegisterPatMuonTree(smalltree);
   }
+
+  //add by Keng//
+  if( storeSTOP_)
+  {
+    SUSYInfo.RegisterPatMETTree(smalltree); 
+  }     
 
   //--------------------------------------
   // jet information
@@ -1490,6 +1511,17 @@ void BTagAnalyzerT<IPTI,VTX>::analyze(const edm::Event& iEvent, const edm::Event
     }
   }
 
+  //------------------------------------------------------
+  // PAT METs
+  //------------------------------------------------------
+  edm::Handle<edm::View<pat::MET> >  mets;
+  if( storeSTOP_ )
+  {
+    iEvent.getByToken(Mets_,mets);
+    SUSYInfo.metpt=mets->ptrAt(0)->pt();
+    SUSYInfo.metphi=mets->ptrAt(0)->phi();    
+    SUSYInfo.meteta=mets->ptrAt(0)->eta();
+  } 
 
   //------------------------------------------------------
   // Muons
@@ -1573,6 +1605,33 @@ void BTagAnalyzerT<IPTI,VTX>::analyze(const edm::Event& iEvent, const edm::Event
       if ( EventInfo.BitTrigger[bitIdx] & ( 1 << (triggerIdx - bitIdx*32) ) ) PFJet80 = true;
     }
   }
+
+  //Add by Keng//
+  float PFMET100_PFMHT100_IDTight =0;
+  float PFMET110_PFMHT110_IDTight =0;
+  float PFMET120_PFMHT120_IDTight =0; 
+  int ntrigs;
+  vector<string> trigname;
+  vector<bool> trigaccept;
+  edm::Handle< edm::TriggerResults > HLTResHandle;
+  edm::InputTag HLTTag = edm::InputTag( "TriggerResults", "", "HLT");
+  iEvent.getByLabel(HLTTag, HLTResHandle);
+  if ( HLTResHandle.isValid() && !HLTResHandle.failedToGet() ) {
+    edm::RefProd<edm::TriggerNames> trigNames( &(iEvent.triggerNames( *HLTResHandle )) );
+    ntrigs = (int)trigNames->size();
+    for (int i = 0; i < ntrigs; i++) {
+      trigname.push_back(trigNames->triggerName(i));
+      trigaccept.push_back(HLTResHandle->accept(i));
+      if (trigaccept[i]){
+      if(std::string(trigname[i]).find("HLT_PFMET100_PFMHT100_IDTight")!=std::string::npos) PFMET100_PFMHT100_IDTight=1;
+      if(std::string(trigname[i]).find("HLT_PFMET110_PFMHT110_IDTight")!=std::string::npos) PFMET110_PFMHT110_IDTight=1;
+      if(std::string(trigname[i]).find("HLT_PFMET120_PFMHT120_IDTight")!=std::string::npos) PFMET120_PFMHT120_IDTight=1;
+      }
+    }
+  }
+  SUSYInfo.HLT_PFMET100_PFMHT100_IDTight=PFMET100_PFMHT100_IDTight;
+  SUSYInfo.HLT_PFMET110_PFMHT110_IDTight=PFMET110_PFMHT110_IDTight;
+  SUSYInfo.HLT_PFMET120_PFMHT120_IDTight=PFMET120_PFMHT120_IDTight;  
 
   //------------- added by Camille-----------------------------------------------------------//
   edm::ESHandle<JetTagComputer> computerHandle;
@@ -2706,6 +2765,10 @@ void BTagAnalyzerT<IPTI,VTX>::processJets(const edm::Handle<PatJetCollection>& j
     JetInfo[iJetColl].Jet_cMVAv2[JetInfo[iJetColl].nJet] = cMVAv2;
     JetInfo[iJetColl].Jet_cMVAv2N[JetInfo[iJetColl].nJet] = cMVAv2Neg;
     JetInfo[iJetColl].Jet_cMVAv2P[JetInfo[iJetColl].nJet] = cMVAv2Pos;
+
+    //Add by Keng//
+    JetInfo[iJetColl].Jet_CvsB[JetInfo[iJetColl].nJet]  = CvsB;
+    JetInfo[iJetColl].Jet_CvsL[JetInfo[iJetColl].nJet]  = CvsL;
 
     // TagInfo TaggingVariables
     if ( storeTagVariables )

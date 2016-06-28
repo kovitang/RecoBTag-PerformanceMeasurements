@@ -177,7 +177,7 @@ options.register('doCTag', False,
     VarParsing.varType.bool,
     "Make NTuples with branches for CTag"
 )
-options.register('usePrivateJEC', True,
+options.register('usePrivateJEC', False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     'Use JECs from private SQLite files')
@@ -193,9 +193,16 @@ options.register('isReHLT', False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     '80X reHLT samples')
+##Add by Keng##
+##SUSY STOP
+options.register('STOP', True,
+    VarParsing.multiplicity.singleton,
+    VarParsing.varType.bool,
+    "Make NTuples with branches for STOP"
+)
 
 ## 'maxEvents' is already registered by the Framework, changing default value
-options.setDefault('maxEvents', -1)
+options.setDefault('maxEvents', 1000)
 
 options.parseArguments()
 
@@ -227,6 +234,9 @@ if options.doBoostedCommissioning:
     print "********************"
 if options.doCTag:
     print "**********You are making NTuple for CTag*************" 
+##Add by Keng##
+if options.STOP:
+   print "**********You are making NTuple for STOP*************"
 
 ## Global tag
 globalTag = options.mcGlobalTag
@@ -480,6 +490,8 @@ if options.miniAOD:
     muSource = 'slimmedMuons'
     elSource = 'slimmedElectrons'
     patMuons = 'slimmedMuons'
+    ##Add by Keng##
+    patMETs = 'slimmedMETs'
     if not options.runJetClustering:
         jetSource = ('slimmedJetsPuppi' if options.usePuppi else 'slimmedJets')
         patJetSource = 'selectedUpdatedPatJets'+postfix
@@ -488,7 +500,6 @@ if options.miniAOD:
         patFatJetSource = 'selectedUpdatedPatJetsFatPFCHS'+postfix
         subJetSourceSoftDrop = 'slimmedJetsAK8PFCHSSoftDropPacked:SubJets'
         patSubJetSourceSoftDrop = 'selectedUpdatedPatJetsSoftDropSubjetsPFCHS'+postfix
-
 
 process = cms.Process("BTagAna")
 
@@ -506,11 +517,13 @@ process.source = cms.Source("PoolSource",
 
 if options.miniAOD:
     process.source.fileNames = [
-        '/store/mc/RunIISummer16MiniAODv2/QCD_Pt_80to120_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/06D23EE0-0EB7-E611-9676-A0369F3102B6.root'
+        #'/store/mc/RunIISummer16MiniAODv2/QCD_Pt_80to120_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/06D23EE0-0EB7-E611-9676-A0369F3102B6.root'
+        'file:/data/scratchLocal/SMS-T2cc_genMET-80_mStop-175_mLSP-95_Summer16/AE7D9492-C5C7-E611-8BDC-0CC47A009E10.root'
     ]
     if options.runOnData:
         process.source.fileNames = [
-            '/store/data/Run2016C/SingleMuon/MINIAOD/23Sep2016-v1/70000/001F13A2-7E8D-E611-B910-FA163E782438.root'
+            #'/store/data/Run2016C/SingleMuon/MINIAOD/23Sep2016-v1/70000/001F13A2-7E8D-E611-B910-FA163E782438.root'
+         'file:/data/scratchLocal/MET_Run2016C-23Sep2016/06E271FE-888B-E611-A9CB-0025905B85BC.root'
         ]
     if options.fastSim:
         process.source.fileNames = [
@@ -1245,8 +1258,8 @@ process.btagana.produceJetTrackTruthTree = False ## can only be used with GEN-SI
 process.btagana.produceAllTrackTree   = False ## True if you want to keep info for all tracks : for commissioning studies
 process.btagana.producePtRelTemplate  = options.producePtRelTemplate  ## True for performance studies
 #------------------
-process.btagana.storeTagVariables     = False  ## True if you want to keep TagInfo TaggingVariables
-process.btagana.storeCSVTagVariables  = True   ## True if you want to keep CSV TaggingVariables
+process.btagana.storeTagVariables     = False ## True if you want to keep TagInfo TaggingVariables
+process.btagana.storeCSVTagVariables  = False  ## True if you want to keep CSV TaggingVariables
 process.btagana.primaryVertexColl     = cms.InputTag(pvSource)
 process.btagana.Jets                  = cms.InputTag(patJetSource)
 process.btagana.muonCollectionName    = cms.InputTag(muSource)
@@ -1261,6 +1274,13 @@ if options.doCTag:
     process.btagana.storeCTagVariables = True
     process.btagana.storeEventInfo = True
     process.btagana.doCTag = options.doCTag
+
+##add by Keng##
+if options.STOP:
+   process.btagana.storeSTOP = True
+   process.btagana.storeEventInfo = True
+   process.btagana.Mets = cms.InputTag(patMETs)
+   process.btagana.fillQuarks = True
 
 ## fillsvTagInfo set to False independently from the choices above, if produceJetTrackTree is set to False
 if not process.btagana.produceJetTrackTree:
@@ -1377,4 +1397,4 @@ process.p = cms.Path(
 # Delete predefined output module (needed for running with CRAB)
 del process.out
 
-open('pydump.py','w').write(process.dumpPython())
+#open('pydump.py','w').write(process.dumpPython())
