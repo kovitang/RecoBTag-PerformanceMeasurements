@@ -415,6 +415,10 @@ class JetInfoBranches {
     float CTag_leptonEtaRel[nMaxLeptons_];
     float CTag_leptonRatio[nMaxLeptons_];
 
+    //Add by Keng//
+    float Jet_CvsB[nMaxJets_];
+    float Jet_CvsL[nMaxJets_];
+
     void RegisterTree(TTree *tree, std::string name="") {
       if(name!="") name += ".";
       tree->Branch((name+"nJet").c_str(),            &nJet           ,(name+"nJet/I").c_str());
@@ -483,6 +487,10 @@ class JetInfoBranches {
       //test variables for AK4 jets: clean up in the future
       tree->Branch((name+"Jet_trackSip2dSig_AboveBottom_0").c_str(),     Jet_trackSip2dSig_AboveBottom_0     ,(name+"Jet_trackSip2dSig_AboveBottom_0["+name+"nJet]/F").c_str()            );
       tree->Branch((name+"Jet_trackSip2dSig_AboveBottom_1").c_str(),     Jet_trackSip2dSig_AboveBottom_1     ,(name+"Jet_trackSip2dSig_AboveBottom_1["+name+"nJet]/F").c_str()            );
+
+      //Add by Keng//
+      tree->Branch((name+"Jet_CvsB").c_str(),     Jet_CvsB     ,(name+"Jet_CvsB["+name+"nJet]/F").c_str());
+      tree->Branch((name+"Jet_CvsL").c_str(),     Jet_CvsL     ,(name+"Jet_CvsL["+name+"nJet]/F").c_str());
 
       //--------------------------------------
       // pf electron information
@@ -951,6 +959,10 @@ class JetInfoBranches {
       //new test variables for AK4 jets: clean up in the future
       tree->SetBranchAddress((name+"Jet_trackSip2dSig_AboveBottom_0").c_str(),     Jet_trackSip2dSig_AboveBottom_0     );
       tree->SetBranchAddress((name+"Jet_trackSip2dSig_AboveBottom_1").c_str(),     Jet_trackSip2dSig_AboveBottom_1     );
+
+      //Add By Keng//
+      tree->SetBranchAddress((name+"Jet_CvsB").c_str(), Jet_CvsB );
+      tree->SetBranchAddress((name+"Jet_CvsL").c_str(), Jet_CvsL );
 
       //--------------------------------------
       // pf electron information

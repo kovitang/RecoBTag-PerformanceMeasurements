@@ -126,6 +126,9 @@
 
 #include "RecoBTag/SecondaryVertex/interface/CombinedSVSoftLeptonComputer.h"
 
+//add by Keng//
+#include "RecoBTag/PerformanceMeasurements/interface/SUSYInfoBranches.h"
+
 //
 // constants, enums and typedefs
 //
@@ -374,6 +377,10 @@ private:
   bool storeCTagVariables_;
   bool doCTag_; 
 
+  //add by Keng//
+  bool storeSTOP_;
+  edm::EDGetTokenT<edm::View<pat::MET>> Mets_;
+
   bool use_ttbar_filter_;
   edm::EDGetTokenT<edm::View<reco::GenParticle> > ttbarproducerGen_;
   edm::EDGetTokenT<edm::View<pat::Electron>> ttbarproducerEle_;
@@ -413,6 +420,9 @@ private:
   //// Event info
   EventInfoBranches EventInfo;
 
+  //add by Keng//
+  SUSYInfoBranches SUSYInfo;
+
   //// Jet info
   std::vector<JetInfoBranches> JetInfo;
   std::map<std::string, SubJetInfoBranches> SubJetInfo;
@@ -428,7 +438,7 @@ private:
   const GenericMVAJetTagComputer *slcomputer ;
 
   edm::View<reco::Muon> muons ;
-
+ 
   edm::ESHandle<TransientTrackBuilder> trackBuilder ;
   edm::Handle<reco::VertexCollection> primaryVertex ;
 
@@ -542,6 +552,10 @@ BTagAnalyzerT<IPTI,VTX>::BTagAnalyzerT(const edm::ParameterSet& iConfig):
 
   storeCTagVariables_ = iConfig.getParameter<bool>("storeCTagVariables");
   doCTag_             = iConfig.getParameter<bool>("doCTag");
+
+  //add By Keng//
+  storeSTOP_ = iConfig.getParameter<bool>("storeSTOP");
+  Mets_      = consumes<edm::View<pat::MET>>(iConfig.getParameter<edm::InputTag>("Mets"));
 
   use_ttbar_filter_ = iConfig.getParameter<bool> ("use_ttbar_filter");
   ttbarproducerGen_ = consumes<edm::View<reco::GenParticle>>(iConfig.getParameter<edm::InputTag>("ttbarproducer")),
@@ -693,6 +707,12 @@ BTagAnalyzerT<IPTI,VTX>::BTagAnalyzerT(const edm::ParameterSet& iConfig):
     if ( produceAllTrackTree_ ) EventInfo.RegisterAllTrackTree(smalltree);
     if ( storePatMuons_ )       EventInfo.RegisterPatMuonTree(smalltree);
   }
+
+  //add by Keng//
+  if( storeSTOP_)
+  {
+    SUSYInfo.RegisterPatMETTree(smalltree); 
+  }     
 
   //--------------------------------------
   // jet information
@@ -1463,6 +1483,17 @@ void BTagAnalyzerT<IPTI,VTX>::analyze(const edm::Event& iEvent, const edm::Event
     }
   }
 
+  //------------------------------------------------------
+  // PAT METs
+  //------------------------------------------------------
+  edm::Handle<edm::View<pat::MET> >  mets;
+  if( storeSTOP_ )
+  {
+    iEvent.getByToken(Mets_,mets);
+    SUSYInfo.metpt=mets->ptrAt(0)->pt();
+    SUSYInfo.metphi=mets->ptrAt(0)->phi();    
+    SUSYInfo.meteta=mets->ptrAt(0)->eta();
+  } 
 
   //------------------------------------------------------
   // Muons
@@ -2527,6 +2558,10 @@ void BTagAnalyzerT<IPTI,VTX>::processJets(const edm::Handle<PatJetCollection>& j
     JetInfo[iJetColl].Jet_cMVAv2[JetInfo[iJetColl].nJet] = cMVAv2;
     JetInfo[iJetColl].Jet_cMVAv2N[JetInfo[iJetColl].nJet] = cMVAv2Neg;
     JetInfo[iJetColl].Jet_cMVAv2P[JetInfo[iJetColl].nJet] = cMVAv2Pos;
+
+    //Add by Keng//
+    JetInfo[iJetColl].Jet_CvsB[JetInfo[iJetColl].nJet]  = CvsB;
+    JetInfo[iJetColl].Jet_CvsL[JetInfo[iJetColl].nJet]  = CvsL;
 
     // TagInfo TaggingVariables
     if ( storeTagVariables )

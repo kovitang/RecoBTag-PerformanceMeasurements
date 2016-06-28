@@ -179,9 +179,16 @@ options.register('isReHLT', False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     '80X reHLT samples')
+##Add by Keng##
+##SUSY STOP
+options.register('STOP', True,
+    VarParsing.multiplicity.singleton,
+    VarParsing.varType.bool,
+    "Make NTuples with branches for STOP"
+)
 
 ## 'maxEvents' is already registered by the Framework, changing default value
-options.setDefault('maxEvents', -1)
+options.setDefault('maxEvents', 100)
 
 options.parseArguments()
 
@@ -213,6 +220,9 @@ if options.doBoostedCommissioning:
     print "********************"
 if options.doCTag:
     print "**********You are making NTuple for CTag*************" 
+##Add by Keng##
+if options.STOP:
+   print "**********You are making NTuple for STOP*************"
 
 ## Global tag
 globalTag = options.mcGlobalTag
@@ -436,6 +446,8 @@ if options.miniAOD:
     muSource = 'slimmedMuons'
     elSource = 'slimmedElectrons'
     patMuons = 'slimmedMuons'
+    ##Add by Keng##
+    patMETs = 'slimmedMETs'
     if not options.runJetClustering:
         jetSource = ('slimmedJetsPuppi' if options.usePuppi else 'slimmedJets')
         patJetSource = 'selectedUpdatedPatJets'+postfix
@@ -444,7 +456,6 @@ if options.miniAOD:
         patFatJetSource = 'selectedUpdatedPatJetsFatPFCHS'+postfix
         subJetSourceSoftDrop = 'slimmedJetsAK8PFCHSSoftDropPacked:SubJets'
         patSubJetSourceSoftDrop = 'selectedUpdatedPatJetsSoftDropSubjetsPFCHS'+postfix
-
 
 process = cms.Process("BTagAna")
 
@@ -463,7 +474,8 @@ process.source = cms.Source("PoolSource",
 if options.miniAOD:
     process.source.fileNames = [
         #'/store/relval/CMSSW_8_0_0/RelValTTbar_13/MINIAODSIM/PU25ns_80X_mcRun2_asymptotic_v4-v1/10000/A65CD249-BFDA-E511-813A-0025905A6066.root'
-        '/store/mc/RunIISpring16MiniAODv2/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/90000/02A0E7CE-1B35-E611-8612-0CC47A7FC4C8.root'
+        #'/store/mc/RunIISpring16MiniAODv2/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/90000/02A0E7CE-1B35-E611-8612-0CC47A7FC4C8.root'
+        'file:/data/scratchLocal/SMS-T2cc_genHT-160_genMET-80_TuneCUETP8M1/383F9C01-A14D-E611-993A-0CC47A009148.root' 
     ]
     if options.runOnData:
         process.source.fileNames = [
@@ -1180,8 +1192,8 @@ process.btagana.produceJetTrackTree   = False ## True if you want to keep info f
 process.btagana.produceAllTrackTree   = False ## True if you want to keep info for all tracks : for commissioning studies
 process.btagana.producePtRelTemplate  = options.producePtRelTemplate  ## True for performance studies
 #------------------
-process.btagana.storeTagVariables     = False  ## True if you want to keep TagInfo TaggingVariables
-process.btagana.storeCSVTagVariables  = True   ## True if you want to keep CSV TaggingVariables
+process.btagana.storeTagVariables     = False ## True if you want to keep TagInfo TaggingVariables
+process.btagana.storeCSVTagVariables  = False  ## True if you want to keep CSV TaggingVariables
 process.btagana.primaryVertexColl     = cms.InputTag(pvSource)
 process.btagana.Jets                  = cms.InputTag(patJetSource)
 process.btagana.muonCollectionName    = cms.InputTag(muSource)
@@ -1196,6 +1208,12 @@ if options.doCTag:
     process.btagana.storeCTagVariables = True
     process.btagana.storeEventInfo = True
     process.btagana.doCTag = options.doCTag
+
+##add by Keng##
+if options.STOP:
+   process.btagana.storeSTOP = True
+   process.btagana.storeEventInfo = True
+   process.btagana.Mets = cms.InputTag(patMETs)
 
 ## fillsvTagInfo set to False independently from the choices above, if produceJetTrackTree is set to False
 if not process.btagana.produceJetTrackTree:
