@@ -193,9 +193,16 @@ options.register('isReHLT', False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     '80X reHLT samples')
+##Add by Keng##
+##SUSY STOP
+options.register('STOP', True,
+    VarParsing.multiplicity.singleton,
+    VarParsing.varType.bool,
+    "Make NTuples with branches for STOP"
+)
 
 ## 'maxEvents' is already registered by the Framework, changing default value
-options.setDefault('maxEvents', -1)
+options.setDefault('maxEvents', 100)
 
 options.parseArguments()
 
@@ -227,6 +234,9 @@ if options.doBoostedCommissioning:
     print "********************"
 if options.doCTag:
     print "**********You are making NTuple for CTag*************" 
+##Add by Keng##
+if options.STOP:
+   print "**********You are making NTuple for STOP*************"
 
 ## Global tag
 globalTag = options.mcGlobalTag
@@ -480,6 +490,8 @@ if options.miniAOD:
     muSource = 'slimmedMuons'
     elSource = 'slimmedElectrons'
     patMuons = 'slimmedMuons'
+    ##Add by Keng##
+    patMETs = 'slimmedMETs'
     if not options.runJetClustering:
         jetSource = ('slimmedJetsPuppi' if options.usePuppi else 'slimmedJets')
         patJetSource = 'selectedUpdatedPatJets'+postfix
@@ -488,7 +500,6 @@ if options.miniAOD:
         patFatJetSource = 'selectedUpdatedPatJetsFatPFCHS'+postfix
         subJetSourceSoftDrop = 'slimmedJetsAK8PFCHSSoftDropPacked:SubJets'
         patSubJetSourceSoftDrop = 'selectedUpdatedPatJetsSoftDropSubjetsPFCHS'+postfix
-
 
 process = cms.Process("BTagAna")
 
@@ -1245,8 +1256,8 @@ process.btagana.produceJetTrackTruthTree = False ## can only be used with GEN-SI
 process.btagana.produceAllTrackTree   = False ## True if you want to keep info for all tracks : for commissioning studies
 process.btagana.producePtRelTemplate  = options.producePtRelTemplate  ## True for performance studies
 #------------------
-process.btagana.storeTagVariables     = False  ## True if you want to keep TagInfo TaggingVariables
-process.btagana.storeCSVTagVariables  = True   ## True if you want to keep CSV TaggingVariables
+process.btagana.storeTagVariables     = False ## True if you want to keep TagInfo TaggingVariables
+process.btagana.storeCSVTagVariables  = False  ## True if you want to keep CSV TaggingVariables
 process.btagana.primaryVertexColl     = cms.InputTag(pvSource)
 process.btagana.Jets                  = cms.InputTag(patJetSource)
 process.btagana.muonCollectionName    = cms.InputTag(muSource)
@@ -1261,6 +1272,12 @@ if options.doCTag:
     process.btagana.storeCTagVariables = True
     process.btagana.storeEventInfo = True
     process.btagana.doCTag = options.doCTag
+
+##add by Keng##
+if options.STOP:
+   process.btagana.storeSTOP = True
+   process.btagana.storeEventInfo = True
+   process.btagana.Mets = cms.InputTag(patMETs)
 
 ## fillsvTagInfo set to False independently from the choices above, if produceJetTrackTree is set to False
 if not process.btagana.produceJetTrackTree:
