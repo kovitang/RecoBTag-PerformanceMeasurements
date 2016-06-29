@@ -498,6 +498,16 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
   AddHisto("CTag_leptonRatioRel"  ,"CTag_leptonRatioRel", 40, 0 , 0.02  , syst );
   AddHisto("CTag_leptonEtaRel"  ,"CTag_leptonEtaRel", 40, 0 , 0.1  , syst );
   AddHisto("CTag_leptonRatio"  ,"CTag_leptonRatio", 40 , 0 ,1  , syst );
+  //With CTag_vertexCategory==0 //
+  AddHisto("CTag_jetNSecondaryVertices_Vcat0" ,"CTag_jetNSecondaryVertices_Vcat0",  6,-0.5,5.5  , syst );
+  AddHisto("CTag_vertexMass_Vcat0"            ,"CTag_vertexMass_Vcat0",             nSVbins,   0.,8.  , syst );
+  AddHisto("CTag_vertexNTracks_Vcat0"         ,"CTag_vertexNTracks_Vcat0",          13, -0.5,12.5, syst );
+  AddHisto("CTag_vertexEnergyRatio_Vcat0"     ,"CTag_vertexEnergyRatio_Vcat0",      nSVbins,   0.,1.  , syst );
+  AddHisto("CTag_vertexJetDeltaR_Vcat0"       ,"CTag_vertexJetDeltaR_Vcat0",        nSVbins,   0.,0.4 , syst );
+  AddHisto("CTag_flightDistance2dSig_Vcat0"   ,"CTag_flightDistance2dSig_Vcat0",    nSVbins,   0.,80. , syst );
+  AddHisto("CTag_flightDistance3dSig_Vcat0"   ,"CTag_flightDistance3dSig_Vcat0",    nSVbins,   0.,80. , syst );
+  AddHisto("CTag_massVertexEnergyFraction_Vcat0","CTag_massVertexEnergyFraction_Vcat0", 50, 0, 1, syst );
+  AddHisto("CTag_vertexBoostOverSqrtJetPt_Vcat0","CTag_vertexBoostOverSqrtJetPt_Vcat0", 50, 0, 1, syst );
 
 /*
   AddHisto("SoftMu"       ,"SoftMu",                                 50,0.,1.  , syst);
@@ -1063,6 +1073,19 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
 	FillHisto_floatFromMap("CTag_massVertexEnergyFraction", flav, isPU ,CTag_massVertexEnergyFraction[newJetIndex],              ww);
 	FillHisto_floatFromMap("CTag_vertexBoostOverSqrtJetPt", flav, isPU ,CTag_vertexBoostOverSqrtJetPt[newJetIndex],              ww);
 	FillHisto_floatFromMap("CTag_vertexLeptonCategory",  	flav, isPU ,CTag_vertexLeptonCategory[newJetIndex],              ww);
+
+        if (CTag_vertexCategory[newJetIndex]==0){
+	  FillHisto_floatFromMap("CTag_jetNSecondaryVertices_Vcat0",    flav, isPU ,CTag_jetNSecondaryVertices[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_vertexMass_Vcat0",               flav, isPU ,CTag_vertexMass[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_vertexNTracks_Vcat0",            flav, isPU ,CTag_vertexNTracks[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_vertexEnergyRatio_Vcat0",        flav, isPU ,CTag_vertexEnergyRatio[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_vertexJetDeltaR_Vcat0",          flav, isPU ,CTag_vertexJetDeltaR[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_flightDistance2dSig_Vcat0",      flav, isPU ,CTag_flightDistance2dSig[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_flightDistance3dSig_Vcat0",      flav, isPU ,CTag_flightDistance3dSig[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_massVertexEnergyFraction_Vcat0", flav, isPU ,CTag_massVertexEnergyFraction[newJetIndex],              ww);
+          FillHisto_floatFromMap("CTag_vertexBoostOverSqrtJetPt_Vcat0", flav, isPU ,CTag_vertexBoostOverSqrtJetPt[newJetIndex],              ww);
+        } 
+
         for (int inrel=Jet_nFirstTrkCTagVar[newJetIndex]; inrel<Jet_nLastTrkCTagVar[newJetIndex]; inrel++)
         {
            FillHisto_floatFromMap("CTag_trackPtRel",    flav, isPU, CTag_trackPtRel[inrel],                     ww);
