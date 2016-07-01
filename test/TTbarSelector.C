@@ -296,17 +296,29 @@ bool TTbarSelector::passSingleTrigger(bool isData, Int_t ttbar_chan, Int_t ttbar
     vector<std::pair<Int_t,Int_t> > trigBits;
     if(isData)
     {
-        if(ttbar_chan == -11) trigBits.push_back(make_pair( 5,ttbar_chan));
-        if(ttbar_chan == -13) trigBits.push_back(make_pair( 4,ttbar_chan));
-        if(ttbar_chan ==  11) trigBits.push_back(make_pair( 5,ttbar_chan));
-        if(ttbar_chan ==  13) trigBits.push_back(make_pair( 4,ttbar_chan));
+        if(ttbar_chan == -11) trigBits.push_back(make_pair( 6,ttbar_chan)); //Ele23_WPLoose_Gsf_v
+	if(ttbar_chan ==  11) trigBits.push_back(make_pair( 6,ttbar_chan)); //Ele23_WPLoose_Gsf_v
+        if(ttbar_chan == -13) trigBits.push_back(make_pair( 4,ttbar_chan)); //IsoMu20_v
+        if(ttbar_chan ==  13) trigBits.push_back(make_pair( 4,ttbar_chan)); //IsoMu20_v
+//        if(ttbar_chan == -11) trigBits.push_back(make_pair( 7,ttbar_chan)); //Ele35_WPLoose_Gsf_v
+//        if(ttbar_chan ==  11) trigBits.push_back(make_pair( 7,ttbar_chan)); //Ele35_WPLoose_Gsf_v
+//        if(ttbar_chan == -13) trigBits.push_back(make_pair( 5,ttbar_chan)); //IsoMu22_v
+//        if(ttbar_chan ==  13) trigBits.push_back(make_pair( 5,ttbar_chan)); //IsoMu22_v
+//        if(ttbar_chan == -11) trigBits.push_back(make_pair( 8,ttbar_chan)); //Ele45_WPLoose_Gsf_v
+//        if(ttbar_chan ==  11) trigBits.push_back(make_pair( 8,ttbar_chan)); //Ele45_WPLoose_Gsf_v
     }
     else
     {
-        trigBits.push_back(make_pair( 5,-11));
+        trigBits.push_back(make_pair( 6,-11));
+        trigBits.push_back(make_pair( 6, 11));
         trigBits.push_back(make_pair( 4,-13));
-        trigBits.push_back(make_pair( 5, 11));
         trigBits.push_back(make_pair( 4, 13));
+//	  trigBits.push_back(make_pair( 7,-11));
+//        trigBits.push_back(make_pair( 7, 11));
+//        trigBits.push_back(make_pair( 5,-13));
+//        trigBits.push_back(make_pair( 5, 13));
+//     	  trigBits.push_back(make_pair( 8,-11));
+//        trigBits.push_back(make_pair( 8, 11));
     }
 
 
