@@ -90,7 +90,7 @@ options.register('fatJetAbsEtaMax', 2.5,
     VarParsing.varType.float,
     "Maximum |eta| for fat jets (default is 2.5)"
 )
-options.register('useTTbarFilter', False,
+options.register('useTTbarFilter', True,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Use TTbar filter"
@@ -148,7 +148,7 @@ options.register('doBoostedCommissioning', False,
     "Make NTuples with branches for boosted b tag commissioning: overrider several other switches"
 )
 ## Do Ctag
-options.register('doCTag', False,
+options.register('doCTag', True,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Make NTuples with branches for CTag"
@@ -373,7 +373,8 @@ process.source = cms.Source("PoolSource",
 if options.miniAOD:
     process.source.fileNames = [
         #'/store/relval/CMSSW_8_0_0/RelValTTbar_13/MINIAODSIM/PU25ns_80X_mcRun2_asymptotic_v4-v1/10000/A65CD249-BFDA-E511-813A-0025905A6066.root'
-        '/store/mc/RunIISpring16MiniAODv2/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/90000/02A0E7CE-1B35-E611-8612-0CC47A7FC4C8.root'
+        #'/store/mc/RunIISpring16MiniAODv2/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/90000/02A0E7CE-1B35-E611-8612-0CC47A7FC4C8.root'
+        '/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext4-v1/00000/004A0552-3929-E611-BD44-0025905A48F0.root'
     ]
     if options.runOnData:
         process.source.fileNames = [
@@ -1178,4 +1179,4 @@ process.p = cms.Path(
 # Delete predefined output module (needed for running with CRAB)
 del process.out
 
-open('pydump.py','w').write(process.dumpPython())
+#open('pydump.py','w').write(process.dumpPython())
