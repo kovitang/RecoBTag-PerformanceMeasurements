@@ -176,12 +176,14 @@ public :
    Int_t           Jet_hist3[1000];   //[nJet]
    Int_t           Jet_histJet[1000];   //[nJet]
    Int_t           Jet_histSvx[1000];   //[nJet]
+/*
    Int_t           Jet_nFirstTrack[1000];   //[nJet]
    Int_t           Jet_nLastTrack[1000];   //[nJet]
    Int_t           Jet_nFirstTrkInc[1000];   //[nJet]
    Int_t           Jet_nLastTrkInc[1000];   //[nJet]
    Int_t           Jet_nFirstSV[1000];   //[nJet]
    Int_t           Jet_nLastSV[1000];   //[nJet]
+*/
    Int_t           Jet_SV_multi[1000];   //[nJet]
    
    
@@ -236,6 +238,7 @@ public :
    
    
    // List of branches for probatree
+/*
    Int_t nTrack; 
    Float_t Track_dxy[ntrack_max];            //[nTrack]
    Float_t Track_dz[ntrack_max];             //[nTrack]
@@ -308,7 +311,7 @@ public :
    Float_t SV_mass[1000];             //[nSV]	 
    Float_t SV_vtx_eta[1000];             //[nSV]
    Float_t SV_vtx_phi[1000];              //[nSV]  
-       
+*/       
    //Add by Keng// 
    //per jet
    Int_t Jet_nFirstTrkCTagVar[nMaxJets_];
@@ -336,11 +339,11 @@ public :
    Float_t CTag_vertexNTracks[nMaxJets_];
    Float_t CTag_vertexEnergyRatio[nMaxJets_];
    Float_t CTag_vertexJetDeltaR[nMaxJets_];
-   Float_t CTag_flightDistance2dVal[nMaxJets_];
+   //Float_t CTag_flightDistance2dVal[nMaxJets_];
    Float_t CTag_flightDistance2dSig[nMaxJets_];
-   Float_t CTag_flightDistance3dVal[nMaxJets_];
+   //Float_t CTag_flightDistance3dVal[nMaxJets_];
    Float_t CTag_flightDistance3dSig[nMaxJets_];
-   Float_t CTag_vertexFitProb[nMaxJets_];
+   //Float_t CTag_vertexFitProb[nMaxJets_];
    Float_t CTag_massVertexEnergyFraction[nMaxJets_];
    Float_t CTag_vertexBoostOverSqrtJetPt[nMaxJets_];
    Float_t CTag_vertexLeptonCategory[nMaxJets_];
@@ -352,9 +355,9 @@ public :
    Float_t CTag_trackDeltaR[nMaxTrk_];                           
    Float_t CTag_trackPtRatio[nMaxTrk_];                          
    Float_t CTag_trackPParRatio[nMaxTrk_];                        
-   Float_t CTag_trackSip2dVal[nMaxTrk_];                         
+   //Float_t CTag_trackSip2dVal[nMaxTrk_];                         
    Float_t CTag_trackSip2dSig[nMaxTrk_];                         
-   Float_t CTag_trackSip3dVal[nMaxTrk_];                         
+   //Float_t CTag_trackSip3dVal[nMaxTrk_];                         
    Float_t CTag_trackSip3dSig[nMaxTrk_];                         
    Float_t CTag_trackDecayLenVal[nMaxTrk_];                      
    Float_t CTag_trackJetDistVal[nMaxTrk_];                       
@@ -481,12 +484,13 @@ public :
    TBranch        *b_Jet_hist3;   //!
    TBranch        *b_Jet_histJet;   //!
    TBranch        *b_Jet_histSvx;   //!
-   TBranch        *b_Jet_nFirstTrack;   //!
+/*   TBranch        *b_Jet_nFirstTrack;   //!
    TBranch        *b_Jet_nLastTrack;   //!
    TBranch        *b_Jet_nFirstTrkInc;   //!
    TBranch        *b_Jet_nLastTrkInc;   //!
    TBranch        *b_Jet_nFirstSV;
    TBranch        *b_Jet_nLastSV;
+*/
    TBranch        *b_Jet_SV_multi;
    TBranch        *b_nTrkInc;   //!
    TBranch        *b_TrkInc_pt;   //!
@@ -558,11 +562,11 @@ public :
    TBranch        *c_CTag_vertexNTracks;
    TBranch        *c_CTag_vertexEnergyRatio;
    TBranch        *c_CTag_vertexJetDeltaR;
-   TBranch        *c_CTag_flightDistance2dVal;
+   //TBranch        *c_CTag_flightDistance2dVal;
    TBranch        *c_CTag_flightDistance2dSig;
-   TBranch        *c_CTag_flightDistance3dVal;
+   //TBranch        *c_CTag_flightDistance3dVal;
    TBranch        *c_CTag_flightDistance3dSig;
-   TBranch        *c_CTag_vertexFitProb;
+   //TBranch        *c_CTag_vertexFitProb;
    TBranch        *c_CTag_massVertexEnergyFraction;
    TBranch        *c_CTag_vertexBoostOverSqrtJetPt;
    TBranch        *c_CTag_vertexLeptonCategory;
@@ -574,9 +578,9 @@ public :
    TBranch        *c_CTag_trackDeltaR;
    TBranch        *c_CTag_trackPtRatio;
    TBranch        *c_CTag_trackPParRatio;
-   TBranch        *c_CTag_trackSip2dVal;
+   //TBranch        *c_CTag_trackSip2dVal;
    TBranch        *c_CTag_trackSip2dSig;
-   TBranch        *c_CTag_trackSip3dVal;
+   //TBranch        *c_CTag_trackSip3dVal;
    TBranch        *c_CTag_trackSip3dSig;
    TBranch        *c_CTag_trackDecayLenVal;
    TBranch        *c_CTag_trackJetDistVal;
@@ -593,6 +597,7 @@ public :
    //--------------------------------------
    // track information 
    //--------------------------------------
+/*
   TBranch *b_nTrack;
   TBranch *b_Trackdxy;
   TBranch *b_Track_dz;   //!
@@ -671,7 +676,7 @@ public :
   TBranch *b_SV_mass;  
   TBranch *b_SV_vtx_eta;
   TBranch *b_SV_vtx_phi;
-  
+*/  
    CommPlotProducer4ttbar(TChain *supertree=0, bool infotree1=true, bool infotree2=true);
    virtual ~CommPlotProducer4ttbar();
    virtual Int_t    GetEntry(Long64_t entry);
@@ -841,12 +846,14 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    fChain->SetBranchAddress("Jet_hist3", Jet_hist3, &b_Jet_hist3);
    fChain->SetBranchAddress("Jet_histJet", Jet_histJet, &b_Jet_histJet);
    fChain->SetBranchAddress("Jet_histSvx", Jet_histSvx, &b_Jet_histSvx);
+   /*
    fChain->SetBranchAddress("Jet_nFirstTrack", Jet_nFirstTrack, &b_Jet_nFirstTrack);
    fChain->SetBranchAddress("Jet_nLastTrack", Jet_nLastTrack, &b_Jet_nLastTrack);
    //fChain->SetBranchAddress("Jet_nFirstTrkInc", Jet_nFirstTrkInc, &b_Jet_nFirstTrkInc);
    //fChain->SetBranchAddress("Jet_nLastTrkInc", Jet_nLastTrkInc, &b_Jet_nLastTrkInc);
      fChain->SetBranchAddress("Jet_nFirstSV", Jet_nFirstSV, &b_Jet_nFirstSV);
      fChain->SetBranchAddress("Jet_nLastSV", Jet_nLastSV, &b_Jet_nLastSV);
+*/
    fChain->SetBranchAddress("Jet_SV_multi",Jet_SV_multi , &b_Jet_SV_multi);
    //fChain->SetBranchAddress("nTrkInc", &nTrkInc, &b_nTrkInc);
    //fChain->SetBranchAddress("TrkInc_pt", TrkInc_pt, &b_TrkInc_pt);
@@ -889,11 +896,11 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    fChain->SetBranchAddress("CTag_vertexNTracks"            ,CTag_vertexNTracks            ,&c_CTag_vertexNTracks);
    fChain->SetBranchAddress("CTag_vertexEnergyRatio"        ,CTag_vertexEnergyRatio        ,&c_CTag_vertexEnergyRatio);
    fChain->SetBranchAddress("CTag_vertexJetDeltaR"          ,CTag_vertexJetDeltaR          ,&c_CTag_vertexJetDeltaR);
-   fChain->SetBranchAddress("CTag_flightDistance2dVal"      ,CTag_flightDistance2dVal      ,&c_CTag_flightDistance2dVal);
+   //fChain->SetBranchAddress("CTag_flightDistance2dVal"      ,CTag_flightDistance2dVal      ,&c_CTag_flightDistance2dVal);
    fChain->SetBranchAddress("CTag_flightDistance2dSig"      ,CTag_flightDistance2dSig      ,&c_CTag_flightDistance2dSig);
-   fChain->SetBranchAddress("CTag_flightDistance3dVal"      ,CTag_flightDistance3dVal      ,&c_CTag_flightDistance3dVal);
+   //fChain->SetBranchAddress("CTag_flightDistance3dVal"      ,CTag_flightDistance3dVal      ,&c_CTag_flightDistance3dVal);
    fChain->SetBranchAddress("CTag_flightDistance3dSig"      ,CTag_flightDistance3dSig      ,&c_CTag_flightDistance3dSig);  
-   fChain->SetBranchAddress("CTag_vertexFitProb"            ,CTag_vertexFitProb         ,&c_CTag_vertexFitProb);
+   //fChain->SetBranchAddress("CTag_vertexFitProb"            ,CTag_vertexFitProb         ,&c_CTag_vertexFitProb);
    fChain->SetBranchAddress("CTag_massVertexEnergyFraction" ,CTag_massVertexEnergyFraction     ,&c_CTag_massVertexEnergyFraction);
    fChain->SetBranchAddress("CTag_vertexBoostOverSqrtJetPt" ,CTag_vertexBoostOverSqrtJetPt     ,&c_CTag_vertexBoostOverSqrtJetPt);
    fChain->SetBranchAddress("CTag_vertexLeptonCategory"     ,CTag_vertexLeptonCategory     ,&c_CTag_vertexLeptonCategory);
@@ -904,9 +911,9 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    fChain->SetBranchAddress("CTag_trackDeltaR"       ,CTag_trackDeltaR       ,&c_CTag_trackDeltaR);
    fChain->SetBranchAddress("CTag_trackPtRatio"      ,CTag_trackPtRatio      ,&c_CTag_trackPtRatio);
    fChain->SetBranchAddress("CTag_trackPParRatio"    ,CTag_trackPParRatio    ,&c_CTag_trackPParRatio);
-   fChain->SetBranchAddress("CTag_trackSip2dVal"     ,CTag_trackSip2dVal     ,&c_CTag_trackSip2dVal);
+   //fChain->SetBranchAddress("CTag_trackSip2dVal"     ,CTag_trackSip2dVal     ,&c_CTag_trackSip2dVal);
    fChain->SetBranchAddress("CTag_trackSip2dSig"     ,CTag_trackSip2dSig     ,&c_CTag_trackSip2dSig);
-   fChain->SetBranchAddress("CTag_trackSip3dVal"     ,CTag_trackSip3dVal     ,&c_CTag_trackSip3dVal);
+   //fChain->SetBranchAddress("CTag_trackSip3dVal"     ,CTag_trackSip3dVal     ,&c_CTag_trackSip3dVal);
    fChain->SetBranchAddress("CTag_trackSip3dSig"     ,CTag_trackSip3dSig     ,&c_CTag_trackSip3dSig);
    fChain->SetBranchAddress("CTag_trackDecayLenVal"  ,CTag_trackDecayLenVal  ,&c_CTag_trackDecayLenVal);
    fChain->SetBranchAddress("CTag_trackJetDistVal"   ,CTag_trackJetDistVal   ,&c_CTag_trackJetDistVal);
@@ -926,6 +933,7 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    //--------------------------------------
    // track information 
    //--------------------------------------
+/*
   fChain->SetBranchAddress("nTrack",	      &nTrack, 	     &b_nTrack);
   fChain->SetBranchAddress("Track_dxy",       Track_dxy,     &b_Trackdxy);	
   fChain->SetBranchAddress("Track_dz",        Track_dz, &b_Track_dz);
@@ -1004,7 +1012,7 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
   fChain->SetBranchAddress("SV_mass" ,SV_mass,&b_SV_mass);
   fChain->SetBranchAddress("SV_vtx_eta" ,SV_vtx_eta,&b_SV_vtx_eta);
   fChain->SetBranchAddress("SV_vtx_phi" ,SV_vtx_phi,&b_SV_vtx_phi);
-
+*/
   
   }
   if (produceNewAlgoTree) {
@@ -1072,7 +1080,7 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    //pileup weights
    puWgtGr_ = 0, puWgtDownGr_ = 0, puWgtUpGr_ = 0;
    
-   TString puWgtUrl("/afs/cern.ch/work/k/kovitang/765_Commissioning/CMSSW_7_6_5/src/RecoBTag/PerformanceMeasurements/test/CTagAnalyzerMacros/pileupWgts.root");
+   TString puWgtUrl("/uscms_data/d2/kovitang/CTagComm_071316/CMSSW_8_0_12/src/RecoBTag/PerformanceMeasurements/test/CTagAnalyzerMacros/pileupWgts.rootX");
    gSystem->ExpandPathName(puWgtUrl);
    TFile *fIn=TFile::Open(puWgtUrl);
    if(fIn)
