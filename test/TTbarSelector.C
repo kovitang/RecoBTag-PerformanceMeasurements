@@ -142,7 +142,7 @@ bool TTbarSelector::passSemiLepTTbarSelection(bool isData, vector<TLorentzVector
         Int_t theChannel = 1;
         for (unsigned short int ih = 0; ih < theLeptColl.size(); ih++)
         {
-                theChannel *= theLeptIds[ih];
+                theChannel = theLeptIds[ih];
         }
 
         // Apply trigger efficiency
@@ -197,7 +197,8 @@ bool TTbarSelector::passSemiLepTTbarSelection(bool isData, vector<TLorentzVector
         // SingleLepton cut
         if ( theLeptColl.size()  != 1) return false;
 
-        //if (theChannel != -13*11) return false; 
+        if (abs(theChannel) != 13 ) return false; //SingleMu
+        //if (abs(theChannel) != 11 ) return false; //SingleElectron 
 
         // Pass trigger
         bool passSingleTrigger_ = passSingleTrigger(isData, theChannel, ttbar_trigWord);
