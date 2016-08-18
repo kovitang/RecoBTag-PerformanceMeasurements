@@ -1191,9 +1191,9 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
         FillHisto_floatFromMap("CvsB",  flav, isPU, CvsB        ,ww);
         FillHisto_floatFromMap("CvsBN", flav, isPU, CvsBN       ,ww);
         FillHisto_floatFromMap("CvsBP", flav, isPU, CvsBP       ,ww);
-        FillHisto_floatFromMap("CvsL",  flav, isPU, CvsB        ,ww);
-        FillHisto_floatFromMap("CvsLN", flav, isPU, CvsBN       ,ww);
-        FillHisto_floatFromMap("CvsLP", flav, isPU, CvsBP       ,ww);
+        FillHisto_floatFromMap("CvsL",  flav, isPU, CvsL        ,ww);
+        FillHisto_floatFromMap("CvsLN", flav, isPU, CvsLN       ,ww);
+        FillHisto_floatFromMap("CvsLP", flav, isPU, CvsLP       ,ww);
 
       }
 /*
