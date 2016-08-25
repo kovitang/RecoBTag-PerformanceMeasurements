@@ -1,7 +1,7 @@
 {
-    //const int j=0; 
-    //const int k=2; 
-    const int i=6;
+    const int j=0; 
+    const int k=19; 
+    //const int i=0;
 
     // Options for CommPlotProducer4ttbar::Loop
     int trig_data=3;
@@ -12,9 +12,12 @@
     const int Nsamples=20;
     float luminosity = 12878; // /pb see usage.txt 
     TString iname[Nsamples] = { 
-                                "Data13TeV_Mu_2016B", //0
+                                /*"Data13TeV_Mu_2016B", //0
 				"Data13TeV_Mu_2016C", //1
-				"Data13TeV_Mu_2016D", //2
+				"Data13TeV_Mu_2016D", //2*/
+                                /*"Data13TeV_Elec_2016B", //0"
+				"Data13TeV_Elec_2016C", //1
+				"Data13TeV_Elec_2016D", //2*/      
 				"MC13TeV_TTJets_powheg_pythia8_1", //3
 				"MC13TeV_DY", //4
 				"MC13TeV_SingleT_s-channel", //5
@@ -31,11 +34,20 @@
 				"MC13TeV_QCD_Pt-470to600_MuEnrichedPt5", //16
 				"MC13TeV_QCD_Pt-600to800_MuEnrichedPt5", //17
 				"MC13TeV_QCD_Pt-800to1000_MuEnrichedPt5", //18
-				"MC13TeV_QCD_Pt-1000toInf_MuEnrichedPt5", //19
+				"MC13TeV_QCD_Pt-1000toInf_MuEnrichedPt5" //19
+				/*"MC13TeV_QCD_Pt-30to50_EMEnriched", //10
+				"MC13TeV_QCD_Pt-50to80_EMEnriched", //11
+				"MC13TeV_QCD_Pt-80to120_EMEnriched", //12
+				"MC13TeV_QCD_Pt-120to170_EMEnriched", //13
+				"MC13TeV_QCD_Pt-170to300_EMEnriched", //14
+				"MC13TeV_QCD_Pt-300toInf_EMEnriched" //15*/
                                 }; 
     TString oname[Nsamples] = { "output_MUdataB_mueg",
                                 "output_MUdataC_mueg",
 				"output_MUdataD_mueg",
+			  	/*"output_ElecdataB_mueg",
+                                "output_ElecdataC_mueg",
+                                "output_ElecdataD_mueg",*/	
                                 "output_ttbar",
                                 "output_dy",
                                 "output_st_s",
@@ -52,7 +64,13 @@
                                 "output_qcd_mu470to600",
 				"output_qcd_mu600to800",
                                 "output_qcd_mu800to1000",
-				"output_qcd_mu1000toinf" 
+				"output_qcd_mu1000toinf"
+				/*"output_qcd_em30to50",
+                                "output_qcd_em50to80",
+                                "output_qcd_em80to120",
+                                "output_qcd_em120to170",
+                                "output_qcd_em170to300",
+                                "output_qcd_em300toInf"*/ 
                                 };
  
     //float sf_dy=1.3; // in Run2015
@@ -60,10 +78,13 @@
     int datatype[Nsamples] = {0, 0, 0, 1, 2, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }; 
     float xsec[Nsamples]   = {0, 0, 0, 831.77, 6024*sf_dy, 3.4, 35.6, 72.3, 35.6, 61524, 1652471.46, 437504.1, 106033.6648, 24720.71814, 8654.49315, 797.35269, 79.02553776, 25.09505908, 4.707368272, 1.62131692 };
 
+    //int datatype[Nsamples] = {0, 0, 0, 1, 2, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5 }; 
+    //float xsec[Nsamples]   = {0, 0, 0, 831.77, 6024*sf_dy, 3.4, 35.6, 72.3, 35.6, 61524, 9928000, 2890800, 350000, 62964, 18810, 135 };
+
     TString samplepath="/eos/uscms/store/user/kovitang/July30_v0";
     TString sampleroot="MergedJetTree.root";
 
-    //for (int i=j; i<k+1; i++) { 
+    for (int i=j; i<k+1; i++) { 
     // Run... 
     TFile* f = TFile::Open(samplepath+"/"+iname[i]+"/"+sampleroot);
     TChain* tree = (TChain*)f->Get("btagana/ttree");
@@ -80,5 +101,5 @@
     {
         run->Loop( datatype[i], trig_data, PtMin_Cut, PtMax_Cut, oname[i], 0, syst);
     }
-    //}//end for loop
+    }//end for loop
 }

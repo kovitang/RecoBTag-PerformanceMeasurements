@@ -25,13 +25,11 @@
 
 using namespace std;
 
-TString Jettypetitle="AK4 jets (p_{T} > 25 GeV)";
-TString filename="output_allMu.root";
-//TString filename="output_allElec.root";
+TString Jettypetitle="AK4 jets (p_{T} > 20 GeV)";
+TString filename="output_all.root";
 TString CMStitle= "CMS";
 TString Preliminarytitle= "Preliminary";
-TString Selectiontitle= "single muon channel, #geq 4 jets";
-//TString Selectiontitle= "single electron channel, #geq 4 jets";
+TString Selectiontitle= "e#mu channel, #geq 2 jets";
 TString Lumititle= "#sqrt{s} = 13 TeV, 25ns";
 //TString title= "CMS 2015 preliminary, #sqrt{s} = 13 TeV,  2.44 fb^{-1}";
 TString format1=".pdf"; // .png or .pdf or .gif
