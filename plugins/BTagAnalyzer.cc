@@ -134,6 +134,7 @@
 
 //add by Keng//
 #include "RecoBTag/PerformanceMeasurements/interface/SUSYInfoBranches.h"
+#include "FWCore/Common/interface/TriggerNames.h"
 
 //
 // constants, enums and typedefs
@@ -1604,6 +1605,27 @@ void BTagAnalyzerT<IPTI,VTX>::analyze(const edm::Event& iEvent, const edm::Event
       if ( EventInfo.BitTrigger[bitIdx] & ( 1 << (triggerIdx - bitIdx*32) ) ) PFJet80 = true;
     }
   }
+
+  //Add by Keng//
+  float PFMET90_PFMHT90_IDTight =0; 
+  int ntrigs;
+  vector<string> trigname;
+  vector<bool> trigaccept;
+  edm::Handle< edm::TriggerResults > HLTResHandle;
+  edm::InputTag HLTTag = edm::InputTag( "TriggerResults", "", "HLT");
+  iEvent.getByLabel(HLTTag, HLTResHandle);
+  if ( HLTResHandle.isValid() && !HLTResHandle.failedToGet() ) {
+    edm::RefProd<edm::TriggerNames> trigNames( &(iEvent.triggerNames( *HLTResHandle )) );
+    ntrigs = (int)trigNames->size();
+    for (int i = 0; i < ntrigs; i++) {
+      trigname.push_back(trigNames->triggerName(i));
+      trigaccept.push_back(HLTResHandle->accept(i));
+      if (trigaccept[i]){
+      if(std::string(trigname[i]).find("HLT_PFMET90_PFMHT90_IDTight")!=std::string::npos) PFMET90_PFMHT90_IDTight=1;
+      }
+    }
+  }
+  SUSYInfo.HLT_PFMET90_PFMHT90_IDTight=PFMET90_PFMHT90_IDTight;  
 
   //------------- added by Camille-----------------------------------------------------------//
   edm::ESHandle<JetTagComputer> computerHandle;

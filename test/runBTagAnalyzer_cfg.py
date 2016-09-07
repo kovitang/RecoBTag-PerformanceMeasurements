@@ -9,7 +9,7 @@ import copy
 
 options = VarParsing ('python')
 
-options.register('runOnData', False,
+options.register('runOnData', True,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Run this on real data"
@@ -202,7 +202,7 @@ options.register('STOP', True,
 )
 
 ## 'maxEvents' is already registered by the Framework, changing default value
-options.setDefault('maxEvents', 100)
+options.setDefault('maxEvents', 10)
 
 options.parseArguments()
 
@@ -1394,4 +1394,4 @@ process.p = cms.Path(
 # Delete predefined output module (needed for running with CRAB)
 del process.out
 
-open('pydump.py','w').write(process.dumpPython())
+#open('pydump.py','w').write(process.dumpPython())
