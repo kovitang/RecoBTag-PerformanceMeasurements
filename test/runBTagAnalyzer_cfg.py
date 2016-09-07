@@ -9,7 +9,7 @@ import copy
 
 options = VarParsing ('python')
 
-options.register('runOnData', False,
+options.register('runOnData', True,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Run this on real data"
@@ -188,7 +188,7 @@ options.register('STOP', True,
 )
 
 ## 'maxEvents' is already registered by the Framework, changing default value
-options.setDefault('maxEvents', 100)
+options.setDefault('maxEvents', 10)
 
 options.parseArguments()
 
@@ -479,7 +479,8 @@ if options.miniAOD:
     ]
     if options.runOnData:
         process.source.fileNames = [
-            '/store/data/Run2016B/SingleMuon/MINIAOD/PromptReco-v2/000/275/125/00000/86B9123D-7F36-E611-9D13-02163E0139C7.root'
+            #'/store/data/Run2016B/SingleMuon/MINIAOD/PromptReco-v2/000/275/125/00000/86B9123D-7F36-E611-9D13-02163E0139C7.root'
+            'file:/data/scratchLocal/MET_Run2016C/420FBE99-833B-E611-A4B6-02163E011EAB.root'
         ]
     if options.fastSim:
         process.source.fileNames = [
@@ -1323,4 +1324,4 @@ process.p = cms.Path(
 # Delete predefined output module (needed for running with CRAB)
 del process.out
 
-open('pydump.py','w').write(process.dumpPython())
+#open('pydump.py','w').write(process.dumpPython())
