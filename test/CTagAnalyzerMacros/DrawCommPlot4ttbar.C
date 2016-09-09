@@ -25,19 +25,26 @@
 
 using namespace std;
 
-TString Jettypetitle="AK4 jets (p_{T} > 20 GeV)";
-TString filename="output_all.root";
+TString Jettypetitle="AK4 jets (p_{T} > 25 GeV)";
+
+//TString filename="output_allMu.root";
+//TString filename="output_allElec.root";
+TString filename="output_allMu_NoTriggerMC.root";
+TString output="Commissioning_plots_singleMu_JetPt25_NoTriggerMC_082516/";
+//TString output="Commissioning_plots_singleElec_JetPt25_082516/";
+TString Selectiontitle= "single muon channel, #geq 4 jets";
+//TString Selectiontitle= "single electron channel, #geq 4 jets";
+
 TString CMStitle= "CMS";
 TString Preliminarytitle= "Preliminary";
-TString Selectiontitle= "e#mu channel, #geq 2 jets";
 TString Lumititle= "#sqrt{s} = 13 TeV, 25ns";
 //TString title= "CMS 2015 preliminary, #sqrt{s} = 13 TeV,  2.44 fb^{-1}";
 TString format1=".pdf"; // .png or .pdf or .gif
 TString format2=".png"; // .png or .pdf or .gif
-bool bOverflow=true;
-bool b_ordering=true;
+bool bOverflow=false;
+bool b_ordering=false;
+bool c_ordering=true;
 bool web = true;
-
 
 void Draw(TString name, TString histotitle, bool log, int move_legend=0);
 void DrawTTbar(TString name, TString histotitle, bool log, int move_legend=0);
@@ -71,6 +78,7 @@ bool Draw_newdiscriminator_plots, bool Draw_tagRate_plots, bool Draw_2D_plots)
 
 void Draw(TString name, TString histotitle, bool log, int move_legend)
 {
+
 
  TH1D* hist_b;
  TH1D* hist_c;
@@ -149,7 +157,14 @@ void Draw(TString name, TString histotitle, bool log, int move_legend)
    stack      ->Add(hist_l);
    //stack      ->Add(hist_gsplit);
  }
- else 
+ else if (c_ordering)
+ {
+   stack      ->Add(hist_c);
+   stack      ->Add(hist_pu);
+   stack      ->Add(hist_b);
+   stack      ->Add(hist_l);
+ }
+ else  
  {
    stack      ->Add(hist_pu);
    //stack      ->Add(hist_gsplit);
@@ -351,9 +366,11 @@ void Draw(TString name, TString histotitle, bool log, int move_legend)
  if(log) name_plot1=name+"_Log"+format1;
  TString name_plot2=name+"_Linear"+format2; 
  if(log) name_plot2=name+"_Log"+format2;
- c1->SaveAs("ttbar/Commissioning_plots_JetPt20/"+name_plot1);
+ c1->SaveAs("ttbar/"+output+name_plot1);
+ c1->SaveAs("ttbar/"+output+name_plot2);
+ //c1->SaveAs("ttbar/Commissioning_plots_singleMu_JetPt25/"+name_plot1);
  //c1->SaveAs("ttbar/"+name_plot1);
- c1->SaveAs("ttbar/Commissioning_plots_JetPt20/"+name_plot2);
+ //c1->SaveAs("ttbar/Commissioning_plots_SingleMu_JetPt25/"+name_plot2);
  //c1->SaveAs("ttbar/"+name_plot2);
 
 }
