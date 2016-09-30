@@ -39,7 +39,8 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
    bool            produceJetProbaTree;
    bool            produceNewAlgoTree;
-
+   //add by Keng//
+   bool            produceCTagTree;
 
    std::vector<TH1D*>   HistoBtag;  
    std::vector<TH1D*>   HistoTTbar;  
@@ -176,14 +177,12 @@ public :
    Int_t           Jet_hist3[1000];   //[nJet]
    Int_t           Jet_histJet[1000];   //[nJet]
    Int_t           Jet_histSvx[1000];   //[nJet]
-/*
    Int_t           Jet_nFirstTrack[1000];   //[nJet]
    Int_t           Jet_nLastTrack[1000];   //[nJet]
    Int_t           Jet_nFirstTrkInc[1000];   //[nJet]
    Int_t           Jet_nLastTrkInc[1000];   //[nJet]
    Int_t           Jet_nFirstSV[1000];   //[nJet]
    Int_t           Jet_nLastSV[1000];   //[nJet]
-*/
    Int_t           Jet_SV_multi[1000];   //[nJet]
    
    
@@ -238,7 +237,6 @@ public :
    
    
    // List of branches for probatree
-/*
    Int_t nTrack; 
    Float_t Track_dxy[ntrack_max];            //[nTrack]
    Float_t Track_dz[ntrack_max];             //[nTrack]
@@ -311,8 +309,9 @@ public :
    Float_t SV_mass[1000];             //[nSV]	 
    Float_t SV_vtx_eta[1000];             //[nSV]
    Float_t SV_vtx_phi[1000];              //[nSV]  
-*/       
+       
    //Add by Keng// 
+   //List of branches for CTag tree
    //per jet
    Int_t Jet_nFirstTrkCTagVar[nMaxJets_];
    Int_t Jet_nLastTrkCTagVar[nMaxJets_];
@@ -484,13 +483,12 @@ public :
    TBranch        *b_Jet_hist3;   //!
    TBranch        *b_Jet_histJet;   //!
    TBranch        *b_Jet_histSvx;   //!
-/*   TBranch        *b_Jet_nFirstTrack;   //!
+   TBranch        *b_Jet_nFirstTrack;   //!
    TBranch        *b_Jet_nLastTrack;   //!
    TBranch        *b_Jet_nFirstTrkInc;   //!
    TBranch        *b_Jet_nLastTrkInc;   //!
    TBranch        *b_Jet_nFirstSV;
    TBranch        *b_Jet_nLastSV;
-*/
    TBranch        *b_Jet_SV_multi;
    TBranch        *b_nTrkInc;   //!
    TBranch        *b_TrkInc_pt;   //!
@@ -597,7 +595,6 @@ public :
    //--------------------------------------
    // track information 
    //--------------------------------------
-/*
   TBranch *b_nTrack;
   TBranch *b_Trackdxy;
   TBranch *b_Track_dz;   //!
@@ -676,8 +673,8 @@ public :
   TBranch *b_SV_mass;  
   TBranch *b_SV_vtx_eta;
   TBranch *b_SV_vtx_phi;
-*/  
-   CommPlotProducer4ttbar(TChain *supertree=0, bool infotree1=true, bool infotree2=true);
+     
+   CommPlotProducer4ttbar(TChain *supertree=0, bool infotree1=true, bool infotree2=true, bool infotreeCTag=false); //add infotreeCTag by Keng
    virtual ~CommPlotProducer4ttbar();
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -705,7 +702,7 @@ public :
 #endif
 
 #ifdef CommPlotProducer4ttbar_cxx
-CommPlotProducer4ttbar::CommPlotProducer4ttbar(TChain *superTree, bool infotree1, bool infotree2)
+CommPlotProducer4ttbar::CommPlotProducer4ttbar(TChain *superTree, bool infotree1, bool infotree2, bool infotreeCTag) //add infoCtagtree by Keng
 {  
 
    numb_histo = 0;
@@ -714,6 +711,8 @@ CommPlotProducer4ttbar::CommPlotProducer4ttbar(TChain *superTree, bool infotree1
 
    produceJetProbaTree=infotree1;
    produceNewAlgoTree=infotree2;
+   //add by Keng//
+   produceCTagTree=infotreeCTag;
 
    if (produceJetProbaTree) use_selected_tracks=false;
    else use_selected_tracks=true;
@@ -846,14 +845,16 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    fChain->SetBranchAddress("Jet_hist3", Jet_hist3, &b_Jet_hist3);
    fChain->SetBranchAddress("Jet_histJet", Jet_histJet, &b_Jet_histJet);
    fChain->SetBranchAddress("Jet_histSvx", Jet_histSvx, &b_Jet_histSvx);
-   /*
+   //add by Keng//
+   if(!produceCTagTree){
+   
    fChain->SetBranchAddress("Jet_nFirstTrack", Jet_nFirstTrack, &b_Jet_nFirstTrack);
    fChain->SetBranchAddress("Jet_nLastTrack", Jet_nLastTrack, &b_Jet_nLastTrack);
    //fChain->SetBranchAddress("Jet_nFirstTrkInc", Jet_nFirstTrkInc, &b_Jet_nFirstTrkInc);
    //fChain->SetBranchAddress("Jet_nLastTrkInc", Jet_nLastTrkInc, &b_Jet_nLastTrkInc);
-     fChain->SetBranchAddress("Jet_nFirstSV", Jet_nFirstSV, &b_Jet_nFirstSV);
-     fChain->SetBranchAddress("Jet_nLastSV", Jet_nLastSV, &b_Jet_nLastSV);
-*/
+   fChain->SetBranchAddress("Jet_nFirstSV", Jet_nFirstSV, &b_Jet_nFirstSV);
+   fChain->SetBranchAddress("Jet_nLastSV", Jet_nLastSV, &b_Jet_nLastSV);
+   }
    fChain->SetBranchAddress("Jet_SV_multi",Jet_SV_multi , &b_Jet_SV_multi);
    //fChain->SetBranchAddress("nTrkInc", &nTrkInc, &b_nTrkInc);
    //fChain->SetBranchAddress("TrkInc_pt", TrkInc_pt, &b_TrkInc_pt);
@@ -872,6 +873,10 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    fChain->SetBranchAddress("mcweight", &mcweight, &b_mcweight);
 
    //Add by Keng//
+   if(produceCTagTree){
+   //--------------------------------------
+   //   CTag information 
+   //--------------------------------------
    fChain->SetBranchAddress("Jet_nFirstTrkCTagVar"        ,Jet_nFirstTrkCTagVar        ,&c_Jet_nFirstTrkCTagVar);
    fChain->SetBranchAddress("Jet_nLastTrkCTagVar"         ,Jet_nLastTrkCTagVar         ,&c_Jet_nLastTrkCTagVar);
    fChain->SetBranchAddress("Jet_nFirstTrkEtaRelCTagVar"        ,Jet_nFirstTrkEtaRelCTagVar        ,&c_Jet_nFirstTrkEtaRelCTagVar);
@@ -926,14 +931,13 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
    fChain->SetBranchAddress("CTag_leptonRatioRel"         ,CTag_leptonRatioRel         ,&c_CTag_leptonRatioRel);
    fChain->SetBranchAddress("CTag_leptonEtaRel"         ,CTag_leptonEtaRel         ,&c_CTag_leptonEtaRel);
    fChain->SetBranchAddress("CTag_leptonRatio"         ,CTag_leptonRatio         ,&c_CTag_leptonRatio);
-
+   }
 
   if ( produceJetProbaTree ) {
       
    //--------------------------------------
    // track information 
    //--------------------------------------
-/*
   fChain->SetBranchAddress("nTrack",	      &nTrack, 	     &b_nTrack);
   fChain->SetBranchAddress("Track_dxy",       Track_dxy,     &b_Trackdxy);	
   fChain->SetBranchAddress("Track_dz",        Track_dz, &b_Track_dz);
@@ -1012,7 +1016,6 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
   fChain->SetBranchAddress("SV_mass" ,SV_mass,&b_SV_mass);
   fChain->SetBranchAddress("SV_vtx_eta" ,SV_vtx_eta,&b_SV_vtx_eta);
   fChain->SetBranchAddress("SV_vtx_phi" ,SV_vtx_phi,&b_SV_vtx_phi);
-*/
   
   }
   if (produceNewAlgoTree) {
