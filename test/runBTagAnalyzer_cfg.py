@@ -9,7 +9,7 @@ import copy
 
 options = VarParsing ('python')
 
-options.register('runOnData', True,
+options.register('runOnData', False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Run this on real data"
@@ -177,7 +177,7 @@ options.register('doCTag', False,
     VarParsing.varType.bool,
     "Make NTuples with branches for CTag"
 )
-options.register('usePrivateJEC', True,
+options.register('usePrivateJEC', False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     'Use JECs from private SQLite files')
@@ -202,7 +202,7 @@ options.register('STOP', True,
 )
 
 ## 'maxEvents' is already registered by the Framework, changing default value
-options.setDefault('maxEvents', 10)
+options.setDefault('maxEvents', 1000)
 
 options.parseArguments()
 
@@ -517,11 +517,13 @@ process.source = cms.Source("PoolSource",
 
 if options.miniAOD:
     process.source.fileNames = [
-        '/store/mc/RunIISummer16MiniAODv2/QCD_Pt_80to120_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/06D23EE0-0EB7-E611-9676-A0369F3102B6.root'
+        #'/store/mc/RunIISummer16MiniAODv2/QCD_Pt_80to120_TuneCUETP8M1_13TeV_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/06D23EE0-0EB7-E611-9676-A0369F3102B6.root'
+        'file:/data/scratchLocal/SMS-T2cc_genMET-80_mStop-175_mLSP-95_Summer16/AE7D9492-C5C7-E611-8BDC-0CC47A009E10.root'
     ]
     if options.runOnData:
         process.source.fileNames = [
-            '/store/data/Run2016C/SingleMuon/MINIAOD/23Sep2016-v1/70000/001F13A2-7E8D-E611-B910-FA163E782438.root'
+            #'/store/data/Run2016C/SingleMuon/MINIAOD/23Sep2016-v1/70000/001F13A2-7E8D-E611-B910-FA163E782438.root'
+         'file:/data/scratchLocal/MET_Run2016C-23Sep2016/06E271FE-888B-E611-A9CB-0025905B85BC.root'
         ]
     if options.fastSim:
         process.source.fileNames = [
@@ -1278,6 +1280,7 @@ if options.STOP:
    process.btagana.storeSTOP = True
    process.btagana.storeEventInfo = True
    process.btagana.Mets = cms.InputTag(patMETs)
+   process.btagana.fillQuarks = True
 
 ## fillsvTagInfo set to False independently from the choices above, if produceJetTrackTree is set to False
 if not process.btagana.produceJetTrackTree:

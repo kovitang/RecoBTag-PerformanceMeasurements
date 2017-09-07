@@ -1607,7 +1607,9 @@ void BTagAnalyzerT<IPTI,VTX>::analyze(const edm::Event& iEvent, const edm::Event
   }
 
   //Add by Keng//
-  float PFMET90_PFMHT90_IDTight =0; 
+  float PFMET100_PFMHT100_IDTight =0;
+  float PFMET110_PFMHT110_IDTight =0;
+  float PFMET120_PFMHT120_IDTight =0; 
   int ntrigs;
   vector<string> trigname;
   vector<bool> trigaccept;
@@ -1621,11 +1623,15 @@ void BTagAnalyzerT<IPTI,VTX>::analyze(const edm::Event& iEvent, const edm::Event
       trigname.push_back(trigNames->triggerName(i));
       trigaccept.push_back(HLTResHandle->accept(i));
       if (trigaccept[i]){
-      if(std::string(trigname[i]).find("HLT_PFMET90_PFMHT90_IDTight")!=std::string::npos) PFMET90_PFMHT90_IDTight=1;
+      if(std::string(trigname[i]).find("HLT_PFMET100_PFMHT100_IDTight")!=std::string::npos) PFMET100_PFMHT100_IDTight=1;
+      if(std::string(trigname[i]).find("HLT_PFMET110_PFMHT110_IDTight")!=std::string::npos) PFMET110_PFMHT110_IDTight=1;
+      if(std::string(trigname[i]).find("HLT_PFMET120_PFMHT120_IDTight")!=std::string::npos) PFMET120_PFMHT120_IDTight=1;
       }
     }
   }
-  SUSYInfo.HLT_PFMET90_PFMHT90_IDTight=PFMET90_PFMHT90_IDTight;  
+  SUSYInfo.HLT_PFMET100_PFMHT100_IDTight=PFMET100_PFMHT100_IDTight;
+  SUSYInfo.HLT_PFMET110_PFMHT110_IDTight=PFMET110_PFMHT110_IDTight;
+  SUSYInfo.HLT_PFMET120_PFMHT120_IDTight=PFMET120_PFMHT120_IDTight;  
 
   //------------- added by Camille-----------------------------------------------------------//
   edm::ESHandle<JetTagComputer> computerHandle;
