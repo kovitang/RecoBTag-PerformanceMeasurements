@@ -192,6 +192,7 @@
     {
         TH1F* inputWeight = (TH1F*)f->Get("ttbarselectionproducer/wgtcounter");
         double wgtcounter = inputWeight->GetBinContent(1);
+	run->SetPUWeightTarget(iname[i]);
         run->SetNorm(xsec[i]*luminosity/wgtcounter);  
         run->Loop( datatype[i], trig_data, PtMin_Cut, PtMax_Cut, oname[i], inputWeight, syst);
     }

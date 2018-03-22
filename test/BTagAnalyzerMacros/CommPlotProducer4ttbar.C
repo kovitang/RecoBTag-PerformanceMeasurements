@@ -644,9 +644,9 @@ void CommPlotProducer4ttbar::Loop(int datatype, int trig_data, float PtMin_Cut, 
     Float_t puWgtLo(1.0), puWgtNom(1.0), puWgtHi(1.0);                           
     if(!isData)
     {
-      if(puWgtGr_)     puWgtNom = puWgtGr_->Eval(nPUtrue);
-      if(puWgtDownGr_) puWgtLo  = puWgtDownGr_->Eval(nPUtrue);
-      if(puWgtUpGr_)   puWgtHi  = puWgtUpGr_->Eval(nPUtrue);
+      if(puWgtGr_)     puWgtNom = puWgtGr_->Eval(nPU);
+      if(puWgtDownGr_) puWgtLo  = puWgtDownGr_->Eval(nPU);
+      if(puWgtUpGr_)   puWgtHi  = puWgtUpGr_->Eval(nPU);
     }
 
 

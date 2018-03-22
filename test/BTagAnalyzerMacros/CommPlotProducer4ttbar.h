@@ -697,6 +697,7 @@ public :
    virtual void     FillHisto2D_int_floatFromMap(TString name, int flavour, bool isGS, int value, float value2, double weight);
    virtual void     FillHisto2D_float_floatFromMap(TString name, int flavour, bool isGS, float value, float value2, double weight);
    virtual void     SetNorm(float xnorm);
+   virtual void    SetPUWeightTarget(TString sampleName);
 
 //private :
    TGraph *puWgtGr_,*puWgtDownGr_,*puWgtUpGr_;
@@ -1098,25 +1099,6 @@ void CommPlotProducer4ttbar::Init(TChain *tree)
   }
 
 
-   //pileup weights
-   puWgtGr_ = 0, puWgtDownGr_ = 0, puWgtUpGr_ = 0;
-   
-   TString puWgtUrl("${CMSSW_BASE}/src/RecoBTag/PerformanceMeasurements/test_ttbarSelector_Moriond16/BTagAnalyzerMacros/pileupWgts.root");
-   gSystem->ExpandPathName(puWgtUrl);
-   TFile *fIn=TFile::Open(puWgtUrl);
-   if(fIn)
-   {
-           puWgtGr_     = (TGraph *)fIn->Get("puwgts_nom");
-           puWgtDownGr_ = (TGraph *)fIn->Get("puwgts_down");
-           puWgtUpGr_   = (TGraph *)fIn->Get("puwgts_up");
-           fIn->Close();
-   }
-   else
-   {
-           std::cout << "Unable to find pileupWgts.root, no PU reweighting will be applied" << std::endl;
-   }
-   
-
    Notify();
 }
 
@@ -1137,6 +1119,35 @@ void CommPlotProducer4ttbar::Show(Long64_t entry)
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
+}
+
+void CommPlotProducer4ttbar::SetPUWeightTarget(TString sampleName)
+{ 
+   puWgtGr_ = 0, puWgtDownGr_ = 0, puWgtUpGr_ = 0;
+   TString stdTarget("${CMSSW_BASE}/src/RecoBTag/PerformanceMeasurements/test/ttbar/data/pileupWgts2017BCDEF.root");
+   gSystem->ExpandPathName(stdTarget);
+   
+   TFile *fIn=TFile::Open(stdTarget);
+   if(fIn){
+        std::string nom( "puwgts_nom");
+        std::string up(  "puwgts_down");
+        std::string down("puwgts_up");
+        if(!sampleName.IsNull()){
+          nom.append("_");
+          nom.append(sampleName);
+          up.append("_");
+          up.append(sampleName);
+          down.append("_");
+          down.append(sampleName);
+        }
+          puWgtGr_     = (TGraph *)fIn->Get(nom.c_str());
+          puWgtDownGr_ = (TGraph *)fIn->Get(down.c_str());
+          puWgtUpGr_   = (TGraph *)fIn->Get(up.c_str());
+        }else
+        {
+                std::cout << "Unable to find pileupWgts.root, no PU reweighting will be applied" << std::endl;
+        }
+   fIn->Close();
 }
 
 #endif // #ifdef CommPlotProducer4ttbar_cxx
